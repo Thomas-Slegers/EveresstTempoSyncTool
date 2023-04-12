@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "ERROR")
+@Table(name = "ERROR_TABLE")
 public class ErrorJpaEntity {
 
     @Id
@@ -16,8 +16,8 @@ public class ErrorJpaEntity {
     @Column(name = "DATE")
     private LocalDate date;
 
-    @Column(name = "USER")
-    private String user;
+    @Column(name = "EMPLOYEE")
+    private String employee;
 
     @Column(name = "ERROR_CODE")
     private Integer errorCode;
@@ -31,9 +31,9 @@ public class ErrorJpaEntity {
     protected ErrorJpaEntity() {
     }
 
-    public ErrorJpaEntity(LocalDate date, String user, int errorCode, String description, String solution) {
+    public ErrorJpaEntity(LocalDate date, String employee, int errorCode, String description, String solution) {
         this.date = date;
-        this.user = user;
+        this.employee = employee;
         this.errorCode = errorCode;
         this.description = description;
         this.solution = solution;
@@ -47,8 +47,8 @@ public class ErrorJpaEntity {
         return date;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmployee() {
+        return employee;
     }
 
     public Integer getErrorCode() {
@@ -61,5 +61,17 @@ public class ErrorJpaEntity {
 
     public String getSolution() {
         return solution;
+    }
+
+    @Override
+    public String toString() {
+        return "ErrorJpaEntity{" +
+                "id=" + id +
+                ", date=" + date +
+                ", employee='" + employee + '\'' +
+                ", errorCode=" + errorCode +
+                ", description='" + description + '\'' +
+                ", solution='" + solution + '\'' +
+                '}';
     }
 }
