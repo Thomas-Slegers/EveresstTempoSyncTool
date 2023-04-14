@@ -1,7 +1,7 @@
 package be.everesst.everessttemposynctool.controller;
 
-import be.everesst.everessttemposynctool.model.error.SyncEntity;
-import be.everesst.everessttemposynctool.model.error.SyncInputEntity;
+import be.everesst.everessttemposynctool.model.sync.SyncEntity;
+import be.everesst.everessttemposynctool.model.sync.SyncInputEntity;
 import be.everesst.everessttemposynctool.service.SyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +14,22 @@ import java.util.UUID;
 @RequestMapping(value = "/")
 public class SyncController {
     @Autowired
-    private SyncService errorService;
+    private SyncService syncService;
 
     @GetMapping("/sync")
     public List<SyncEntity> findAllSyncEntities() {
-        return errorService.findAllSyncEntities();
+        syncService.findAllSyncEntities().forEach(System.out::println);
+        return syncService.findAllSyncEntities();
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{id}")
     public SyncEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
-        return errorService.findSyncEntitiesBySyncTableUUIDAndId(syncTableUUID, id);
+        return syncService.findSyncEntitiesBySyncTableUUIDAndId(syncTableUUID, id);
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}")
     public List<SyncEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        return errorService.findAllSyncEntitiesBySyncTableUUID(syncTableUUID);
+        return syncService.findAllSyncEntitiesBySyncTableUUID(syncTableUUID);
     }
 
     @PostMapping(value = "/input")

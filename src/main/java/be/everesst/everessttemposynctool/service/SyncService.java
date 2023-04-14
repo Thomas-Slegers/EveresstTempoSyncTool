@@ -1,7 +1,7 @@
 package be.everesst.everessttemposynctool.service;
 
-import be.everesst.everessttemposynctool.model.error.SyncEntity;
-import be.everesst.everessttemposynctool.model.error.SyncRepository;
+import be.everesst.everessttemposynctool.model.sync.SyncEntity;
+import be.everesst.everessttemposynctool.model.sync.SyncRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

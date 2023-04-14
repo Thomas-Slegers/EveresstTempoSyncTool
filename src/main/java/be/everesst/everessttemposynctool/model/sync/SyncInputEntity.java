@@ -1,4 +1,4 @@
-package be.everesst.everessttemposynctool.model.error;
+package be.everesst.everessttemposynctool.model.sync;
 
 import jakarta.persistence.*;
 
