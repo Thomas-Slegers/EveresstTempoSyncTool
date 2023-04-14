@@ -1,6 +1,7 @@
 package be.everesst.everessttemposynctool.controller;
 
 import be.everesst.everessttemposynctool.model.error.ErrorJpaEntity;
+import be.everesst.everessttemposynctool.model.error.SyncInputEntity;
 import be.everesst.everessttemposynctool.service.ErrorJpaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class ErrorJpaController {
     @GetMapping(value = "/errors/{errorId}")
     public ErrorJpaEntity findAllErrorJpaEntities(@PathVariable Long errorId) {
         return errorService.findErrorById(errorId);
+    }
+
+    @PostMapping(value = "/input")
+    public void startSync(@RequestBody SyncInputEntity syncInputEntity) {
+        System.out.println(syncInputEntity.getFile().toString());
     }
 }
 
