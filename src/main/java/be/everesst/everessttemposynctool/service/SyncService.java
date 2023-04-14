@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SyncService {
@@ -16,7 +17,11 @@ public class SyncService {
         return syncRepository.findAll();
     }
 
-    public SyncEntity findSyncEntityById(Long id) {
-        return syncRepository.findSyncEntityById(id);
+    public SyncEntity findSyncEntitiesBySyncTableUUIDAndId(UUID syncTableUUID, Long id) {
+        return syncRepository.findSyncEntitiesBySyncTableUUIDAndAndId(syncTableUUID, id);
+    }
+
+    public List<SyncEntity> findAllSyncEntitiesBySyncTableUUID(UUID syncTableUUID) {
+        return syncRepository.findSyncEntitiesBySyncTableUUID(syncTableUUID);
     }
 }
