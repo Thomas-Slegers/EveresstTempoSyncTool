@@ -1,4 +1,4 @@
-package be.everesst.everessttemposynctool.model.error;
+package be.everesst.everessttemposynctool.model.sync;
 
 import jakarta.persistence.*;
 
@@ -53,6 +53,14 @@ public class SyncEntity {
         this.solution = solution;
     }
 
+    public UUID getSyncTableUUID() {
+        return syncTableUUID;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
     public long getId() {
         return id;
     }
@@ -61,8 +69,24 @@ public class SyncEntity {
         return date;
     }
 
-    public String getEmployee() {
+    public String getCamisResource() {
+        return camisResource;
+    }
+
+    public String getEmployeeName() {
         return employeeName;
+    }
+
+    public String getTimeCode() {
+        return timeCode;
+    }
+
+    public String getWorkOrder() {
+        return workOrder;
+    }
+
+    public double getHoursLogged() {
+        return hoursLogged;
     }
 
     public Integer getErrorCode() {
