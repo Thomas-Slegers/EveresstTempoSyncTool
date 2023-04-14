@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,9 +21,14 @@ public class SyncController {
         return errorService.findAllSyncEntities();
     }
 
-    @GetMapping(value = "/sync/{syncId}")
-    public SyncEntity findSyncEntityById(@PathVariable Long syncId) {
-        return errorService.findSyncEntityById(syncId);
+    @GetMapping(value = "/sync/{syncTableUUID}/{id}")
+    public SyncEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
+        return errorService.findSyncEntitiesBySyncTableUUIDAndId(syncTableUUID, id);
+    }
+
+    @GetMapping(value = "/sync/{syncTableUUID}")
+    public List<SyncEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        return errorService.findAllSyncEntitiesBySyncTableUUID(syncTableUUID);
     }
 
     @PostMapping(value = "/input")
