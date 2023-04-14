@@ -3,11 +3,14 @@ package be.everesst.everessttemposynctool.model.error;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "SYNC_TABLE")
 public class SyncEntity {
 
+    @Column(name = "SYNC_TABLE_UUID")
+    private UUID syncTableUUID;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -36,7 +39,8 @@ public class SyncEntity {
     protected SyncEntity() {
     }
 
-    public SyncEntity(String team, LocalDate date, String camisResource, String employeeName, String timeCode, String workOrder, double hoursLogged, int errorCode, String description, String solution) {
+    public SyncEntity(UUID syncTableId, String team, LocalDate date, String camisResource, String employeeName, String timeCode, String workOrder, double hoursLogged, int errorCode, String description, String solution) {
+        this.syncTableUUID = syncTableId;
         this.team = team;
         this.date = date;
         this.camisResource = camisResource;
@@ -75,6 +79,19 @@ public class SyncEntity {
 
     @Override
     public String toString() {
-        return "SyncEntity{" + "id=" + id + ", date=" + date + ", employee='" + employeeName + '\'' + ", errorCode=" + errorCode + ", description='" + description + '\'' + ", solution='" + solution + '\'' + '}';
+        return "SyncEntity{" +
+                "syncTableUUID=" + syncTableUUID +
+                ", id=" + id +
+                ", team='" + team + '\'' +
+                ", date=" + date +
+                ", camisResource='" + camisResource + '\'' +
+                ", employeeName='" + employeeName + '\'' +
+                ", timeCode='" + timeCode + '\'' +
+                ", workOrder='" + workOrder + '\'' +
+                ", hoursLogged=" + hoursLogged +
+                ", errorCode=" + errorCode +
+                ", description='" + description + '\'' +
+                ", solution='" + solution + '\'' +
+                '}';
     }
 }
