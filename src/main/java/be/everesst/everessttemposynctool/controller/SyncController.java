@@ -1,8 +1,8 @@
 package be.everesst.everessttemposynctool.controller;
 
-import be.everesst.everessttemposynctool.model.error.ErrorJpaEntity;
+import be.everesst.everessttemposynctool.model.error.SyncEntity;
 import be.everesst.everessttemposynctool.model.error.SyncInputEntity;
-import be.everesst.everessttemposynctool.service.ErrorJpaService;
+import be.everesst.everessttemposynctool.service.SyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +11,18 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/")
-public class ErrorJpaController {
+public class SyncController {
     @Autowired
-    private ErrorJpaService errorService;
+    private SyncService errorService;
 
-    @GetMapping("/errors")
-    public List<ErrorJpaEntity> findAllErrorJpaEntities() {
-        return errorService.findAllErrors();
+    @GetMapping("/sync")
+    public List<SyncEntity> findAllSyncEntities() {
+        return errorService.findAllSyncEntities();
     }
 
-    @GetMapping(value = "/errors/{errorId}")
-    public ErrorJpaEntity findAllErrorJpaEntities(@PathVariable Long errorId) {
-        return errorService.findErrorById(errorId);
+    @GetMapping(value = "/sync/{syncId}")
+    public SyncEntity findSyncEntityById(@PathVariable Long syncId) {
+        return errorService.findSyncEntityById(syncId);
     }
 
     @PostMapping(value = "/input")
