@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -35,6 +36,11 @@ public class SyncController {
     @PostMapping(value = "/input")
     public void startSync(@RequestBody SyncInputEntity syncInputEntity) {
         System.out.println(syncInputEntity.getFile().toString());
+    }
+
+    @PostMapping("/camis-api/sync-response")
+    public void findAllSyncResponses(@RequestBody Map<String, Object> payload) {
+        System.out.println(payload);
     }
 }
 
