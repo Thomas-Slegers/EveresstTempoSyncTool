@@ -1,13 +1,13 @@
 package be.everesst.everessttemposynctool.controller;
 
-import be.everesst.everessttemposynctool.model.sync.SyncEntity;
-import be.everesst.everessttemposynctool.model.sync.SyncInputEntity;
-import be.everesst.everessttemposynctool.service.SyncService;
+import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
+import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
+import be.everesst.everessttemposynctool.service.SyncRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -15,22 +15,16 @@ import java.util.UUID;
 @RequestMapping(value = "/")
 public class SyncController {
     @Autowired
-    private SyncService syncService;
-
-    @GetMapping("/sync")
-    public List<SyncEntity> findAllSyncEntities() {
-        syncService.findAllSyncEntities().forEach(System.out::println);
-        return syncService.findAllSyncEntities();
-    }
+    private SyncRecordService syncRecordService;
 
     @GetMapping(value = "/sync/{syncTableUUID}/{id}")
-    public SyncEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
-        return syncService.findSyncEntitiesBySyncTableUUIDAndId(syncTableUUID, id);
+    public SyncRecordEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
+        return syncRecordService.findSyncRecordByUUIDAndSyncRecordId(syncTableUUID, id);
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}")
-    public List<SyncEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        return syncService.findAllSyncEntitiesBySyncTableUUID(syncTableUUID);
+    public Set<SyncRecordEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        return syncRecordService.findAllSyncRecordsByUUID(syncTableUUID);
     }
 
     @PostMapping(value = "/input")
