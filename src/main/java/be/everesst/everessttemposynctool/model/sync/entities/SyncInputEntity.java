@@ -1,4 +1,4 @@
-package be.everesst.everessttemposynctool.model.sync;
+package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.*;
 
@@ -17,7 +17,6 @@ public class SyncInputEntity {
     private String clientId;
 
     private String clientSecret;
-
 
     protected SyncInputEntity() {
     }
