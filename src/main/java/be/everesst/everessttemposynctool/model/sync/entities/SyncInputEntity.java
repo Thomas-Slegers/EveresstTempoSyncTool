@@ -1,12 +1,12 @@
 package be.everesst.everessttemposynctool.model.sync.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.io.File;
 
 @Entity
 public class SyncInputEntity {
-
     @Id
     private File file;
 

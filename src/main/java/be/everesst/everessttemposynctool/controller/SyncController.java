@@ -4,6 +4,7 @@ import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
 import be.everesst.everessttemposynctool.service.SyncRecordService;
 import be.everesst.everessttemposynctool.service.SyncResultService;
+import com.basic.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class SyncController {
 
     @GetMapping(value = "/sync/{syncTableUUID}/{id}")
     public SyncRecordEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
+        Main.main(null);
         return syncRecordService.findSyncRecordByUUIDAndSyncRecordId(syncTableUUID, id);
     }
 
