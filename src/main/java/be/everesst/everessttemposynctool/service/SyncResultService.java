@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Service
 public class SyncResultService {
+
     @Autowired
     SyncResultRepository syncResultRepository;
 
