@@ -2,11 +2,13 @@ package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import java.io.File;
 
 @Entity
 public class SyncInputEntity {
+
+    private String syncResultUUID;
+
     @Id
     private File file;
 
@@ -21,7 +23,8 @@ public class SyncInputEntity {
     protected SyncInputEntity() {
     }
 
-    public SyncInputEntity(File file, String operation, String baseUrl, String clientId, String clientSecret) {
+    public SyncInputEntity(String syncResultUUID, File file, String operation, String baseUrl, String clientId, String clientSecret) {
+        this.syncResultUUID = syncResultUUID;
         this.file = file;
         this.operation = operation;
         this.baseUrl = baseUrl;
@@ -31,7 +34,11 @@ public class SyncInputEntity {
 
     @Override
     public String toString() {
-        return "SyncInputJpaEntity{" + "file=" + this.file + ", operation='" + this.operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
+        return "SyncInputJpaEntity{syncResultUUID=" + this.syncResultUUID + '\'' + ", file=" + this.file + '\'' + ", operation='" + this.operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
+    }
+
+    public String getSyncResultUUID() {
+        return syncResultUUID;
     }
 
     public File getFile() {
