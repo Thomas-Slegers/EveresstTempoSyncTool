@@ -11,8 +11,10 @@ import java.util.UUID;
 
 @Service
 public class SyncRecordService {
+
     @Autowired
     SyncRecordRepository syncRecordRepository;
+
     @Autowired
     SyncResultRepository syncResultRepository;
 
