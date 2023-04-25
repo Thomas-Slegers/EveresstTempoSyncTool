@@ -31,10 +31,26 @@ public class SyncInputEntity {
 
     @Override
     public String toString() {
-        return "SyncInputJpaEntity{" + "file=" + file + ", operation='" + operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
+        return "SyncInputJpaEntity{" + "file=" + this.file + ", operation='" + this.operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
     }
 
     public File getFile() {
         return file;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
     }
 }
