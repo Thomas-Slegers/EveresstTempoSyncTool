@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/thomas-slegers/basic")
+            url = uri("https://maven.pkg.github.com/thomas-slegers/Camis-Api-Test")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
@@ -22,7 +22,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.basic:basic:1.0.0"
+    //implementation "com.cegeka.horizon.camis:sync_timesheet_application:1.0.14"
+    implementation "com.cegeka.horizon.camis:sync_logger:1.0.15"
     implementation group: 'org.json', name: 'json', version: '20220320'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
