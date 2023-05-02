@@ -2,17 +2,15 @@ package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import org.json.JSONObject;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.UUID;
 
 @Entity
 public class SyncInputEntity {
 
     @Id
-    private String syncResultUUID;
+    private UUID syncResultUUID;
 
     private File file;
 
@@ -27,7 +25,7 @@ public class SyncInputEntity {
     protected SyncInputEntity() {
     }
 
-    public SyncInputEntity(String syncResultUUID, File file, String operation, String baseUrl, String clientId, String clientSecret) throws IOException {
+    public SyncInputEntity(UUID syncResultUUID, File file, String operation, String baseUrl, String clientId, String clientSecret) {
         this.syncResultUUID = syncResultUUID;
         this.file = file;
         this.operation = operation;
@@ -41,7 +39,7 @@ public class SyncInputEntity {
         return "SyncInputJpaEntity{syncResultUUID=" + this.syncResultUUID + '\'' + ", file=" + this.file + '\'' + ", operation='" + this.operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
     }
 
-    public String getSyncResultUUID() {
+    public UUID getSyncResultUUID() {
         return syncResultUUID;
     }
 
