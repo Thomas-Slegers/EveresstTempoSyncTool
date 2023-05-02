@@ -1,10 +1,10 @@
 package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "SYNC_RECORDS")
