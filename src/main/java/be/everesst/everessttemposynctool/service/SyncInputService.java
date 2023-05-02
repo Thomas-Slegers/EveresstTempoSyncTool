@@ -32,22 +32,20 @@ public class SyncInputService {
         this.syncRecordService = syncRecordService;
     }
     public void startCamisApi(SyncInputEntity syncInputEntity) throws IOException {
-        WebClient webClient = getWebClient("https://gw.api.cegeka.com/1/erp/camis/v1/prd/", "68d8012c-f2c7-4a9d-a24b-d9b8f718f4a2", "uC1pT8wN7mN5fX6xF5uU3rQ8vY8dX8nE5eW1tI4kL8gE8mO6vJ");
-        List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream("/home/thomas/git/Camis/csv_import_Camis_API.csv")).readCsv();
+        WebClient webClient = getWebClient(syncInputEntity.getBaseUrl(), syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
+        List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
         List<SyncRecord> syncRecords = syncTimesheetService.sync(webClient, employees);
         syncRecordEntitiesSaveToSyncResultEntity(syncRecordsToSyncRecordEntities(syncRecords), syncInputEntity.getSyncResultUUID());
     }
 
    private List<SyncRecordEntity> syncRecordsToSyncRecordEntities(List<SyncRecord> syncRecords) {
         List<SyncRecordEntity> syncRecordEntities = new ArrayList<>();
-        for (int index = 0; index < syncRecords.size(); index++) {
-            SyncRecord currentSyncRecord = syncRecords.get(index);
-            syncRecordEntities.add(new SyncRecordEntity(index,
-                    currentSyncRecord.getMessage(),
-                    currentSyncRecord.getEmployeeName(),
-                    currentSyncRecord.getStartDate(),
-                    currentSyncRecord.getHoursLogged(),
-                    currentSyncRecord.getWorkOrder()));
+       for (SyncRecord syncRecord: syncRecords) {
+            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getMessage(),
+                    syncRecord.getEmployeeName(),
+                    syncRecord.getStartDate(),
+                    syncRecord.getHoursLogged(),
+                    syncRecord.getWorkOrder()));
         }
         return syncRecordEntities;
     }
