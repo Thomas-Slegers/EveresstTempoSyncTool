@@ -26,6 +26,9 @@ public class SyncRecordEntity {
     @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
 
+    @Column(name = "ERROR_CODE")
+    private int errorCode;
+
     @Column(name = "START_DATE")
     private LocalDate startDate;
 
@@ -38,9 +41,10 @@ public class SyncRecordEntity {
     protected SyncRecordEntity() {
     }
 
-    public SyncRecordEntity(String message, String employeeName, LocalDate startDate, double hoursLogged, String workOrder) {
+    public SyncRecordEntity(String message, String employeeName, int errorCode, LocalDate startDate, double hoursLogged, String workOrder) {
         this.message = message;
         this.startDate = startDate;
+        this.errorCode = errorCode;
         this.employeeName = employeeName;
         this.workOrder = workOrder;
         this.hoursLogged = hoursLogged;
@@ -57,6 +61,8 @@ public class SyncRecordEntity {
     public LocalDate getStartDate() {
         return startDate;
     }
+
+    public int getErrorCode() { return errorCode; }
 
     public String getEmployeeName() {
         return employeeName;
@@ -76,6 +82,6 @@ public class SyncRecordEntity {
 
     @Override
     public String toString() {
-        return "SyncEntity{id=" + id + '\'' + ", message=" + message + '\'' + ", employeeName='" + employeeName + '\'' + ", startDate=" + startDate + '\'' + ", hoursLogged=" + hoursLogged + '\'' + ", workOrder='" + workOrder + '\'' + '}';
+        return "SyncEntity{id=" + id + '\'' + ", message=" + message + '\'' + ", errorCode=" + errorCode + '\'' + ", employeeName='" + employeeName + '\'' + ", startDate=" + startDate + '\'' + ", hoursLogged=" + hoursLogged + '\'' + ", workOrder='" + workOrder + '\'' + '}';
     }
 }

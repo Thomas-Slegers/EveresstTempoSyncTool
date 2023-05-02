@@ -43,6 +43,7 @@ public class SyncInputService {
        for (SyncRecord syncRecord: syncRecords) {
             syncRecordEntities.add(new SyncRecordEntity(syncRecord.getMessage(),
                     syncRecord.getEmployeeName(),
+                    syncRecord.getErrorCode(),
                     syncRecord.getStartDate(),
                     syncRecord.getHoursLogged(),
                     syncRecord.getWorkOrder()));
