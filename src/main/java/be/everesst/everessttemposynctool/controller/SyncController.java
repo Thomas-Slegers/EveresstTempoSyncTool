@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/")
 public class SyncController {
     @Autowired
