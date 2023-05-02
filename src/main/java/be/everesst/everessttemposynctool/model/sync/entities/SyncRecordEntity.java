@@ -12,6 +12,7 @@ public class SyncRecordEntity {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -37,8 +38,7 @@ public class SyncRecordEntity {
     protected SyncRecordEntity() {
     }
 
-    public SyncRecordEntity(long id, String message, String employeeName, LocalDate startDate, double hoursLogged, String workOrder) {
-        this.id = id;
+    public SyncRecordEntity(String message, String employeeName, LocalDate startDate, double hoursLogged, String workOrder) {
         this.message = message;
         this.startDate = startDate;
         this.employeeName = employeeName;
