@@ -36,7 +36,7 @@ public class SyncController {
     public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("file") MultipartFile file, @RequestParam("operation") String operation, @RequestParam("baseUrl") String baseUrl, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
         File tempFile = new File("/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/controller/random.txt");
         file.transferTo(tempFile);
-        syncInputService.startCamisApi(new SyncInputEntity(uuid, tempFile, operation, baseUrl, clientId, clientSecret));
+        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), tempFile, operation, baseUrl, clientId, clientSecret));
         tempFile.delete();
     }
 }
