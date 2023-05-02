@@ -26,11 +26,12 @@ public class SyncInputService {
 
     SyncTimesheetService syncTimesheetService;
 
-    public SyncInputService(SyncTimesheetService syncTimesheetService, SyncResultService syncResultService, SyncRecordService syncRecordService){
+    public SyncInputService(SyncTimesheetService syncTimesheetService, SyncResultService syncResultService, SyncRecordService syncRecordService) {
         this.syncTimesheetService = syncTimesheetService;
         this.syncResultService = syncResultService;
         this.syncRecordService = syncRecordService;
     }
+
     public void startCamisApi(SyncInputEntity syncInputEntity) throws IOException {
         WebClient webClient = getWebClient(syncInputEntity.getBaseUrl(), syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
@@ -38,15 +39,10 @@ public class SyncInputService {
         syncRecordEntitiesSaveToSyncResultEntity(syncRecordsToSyncRecordEntities(syncRecords), syncInputEntity.getSyncResultUUID());
     }
 
-   private List<SyncRecordEntity> syncRecordsToSyncRecordEntities(List<SyncRecord> syncRecords) {
+    private List<SyncRecordEntity> syncRecordsToSyncRecordEntities(List<SyncRecord> syncRecords) {
         List<SyncRecordEntity> syncRecordEntities = new ArrayList<>();
-       for (SyncRecord syncRecord: syncRecords) {
-            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getMessage(),
-                    syncRecord.getEmployeeName(),
-                    syncRecord.getErrorCode(),
-                    syncRecord.getStartDate(),
-                    syncRecord.getHoursLogged(),
-                    syncRecord.getWorkOrder()));
+        for (SyncRecord syncRecord : syncRecords) {
+            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getMessage(), syncRecord.getEmployeeName(), syncRecord.getErrorCode(), syncRecord.getStartDate(), syncRecord.getHoursLogged(), syncRecord.getWorkOrder()));
         }
         return syncRecordEntities;
     }
