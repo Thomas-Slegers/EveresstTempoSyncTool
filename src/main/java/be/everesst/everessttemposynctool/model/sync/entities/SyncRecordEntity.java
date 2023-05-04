@@ -58,6 +58,10 @@ public class SyncRecordEntity {
         return id;
     }
 
+    public String getResourceId() {
+        return resourceId;
+    }
+
     public String getMessage() {
         return message;
     }
