@@ -17,12 +17,12 @@ import java.util.UUID;
 @RequestMapping(value = "/")
 public class SyncController {
     private static final String TEMP_FILE = "/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/controller/random.txt";
-    private final SyncRecordService syncRecordService;
     private final SyncInputService syncInputService;
+    private final SyncRecordService syncRecordService;
 
-    public SyncController(SyncRecordService syncRecordService, SyncInputService syncInputService) {
-        this.syncRecordService = syncRecordService;
+    public SyncController(SyncInputService syncInputService, SyncRecordService syncRecordService) {
         this.syncInputService = syncInputService;
+        this.syncRecordService = syncRecordService;
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{id}")
@@ -33,6 +33,11 @@ public class SyncController {
     @GetMapping(value = "/sync/{syncTableUUID}")
     public Set<SyncRecordEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
         return syncRecordService.findAllSyncRecordsByUUID(syncTableUUID);
+    }
+
+    @GetMapping(value = "/sync/{syncTableUUID}/slack")
+    public String findSlackInputBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        return "{ \"message\": \"" + syncRecordService.findSlackInputBySyncResultUUID(syncTableUUID) + "\" }";
     }
 
     @PostMapping(value = "/input")
