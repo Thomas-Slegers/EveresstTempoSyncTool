@@ -42,7 +42,7 @@ public class SyncInputService {
     private List<SyncRecordEntity> syncRecordsToSyncRecordEntities(List<SyncRecord> syncRecords) {
         List<SyncRecordEntity> syncRecordEntities = new ArrayList<>();
         for (SyncRecord syncRecord : syncRecords) {
-            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getMessage(), syncRecord.getEmployeeName(), syncRecord.getErrorCode(), syncRecord.getStartDate(), syncRecord.getHoursLogged(), syncRecord.getWorkOrder()));
+            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getResourceId(), syncRecord.getMessage(), syncRecord.getEmployeeName(), syncRecord.getErrorCode(), syncRecord.getStartDate(), syncRecord.getHoursLogged(), syncRecord.getWorkOrder()));
         }
         return syncRecordEntities;
     }
