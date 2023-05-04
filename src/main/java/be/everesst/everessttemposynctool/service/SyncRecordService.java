@@ -32,5 +32,13 @@ public class SyncRecordService {
         syncRecord.setSyncResult(syncResultRepository.findSyncResultEntityBySyncResultUUID(syncResultUUID));
         syncRecordRepository.save(syncRecord);
     }
+
+    public String findSlackInputBySyncResultUUID(UUID syncResultUUID){
+        StringBuilder result = new StringBuilder();
+        for (SyncRecordEntity syncRecordEntity: this.findAllSyncRecordsByUUID(syncResultUUID)) {
+            result.append(syncRecordEntity.toString());
+        }
+        return result.toString();
+    }
 }
 
