@@ -20,6 +20,8 @@ import static com.cegeka.horizon.camis.web_client_factory.WebClientFactory.getWe
 @Service
 public class SyncInputService {
 
+    private static final String baseURL = "https://gw.api.cegeka.com/1/erp/camis/v1/prd/";
+
     SyncRecordService syncRecordService;
 
     SyncResultService syncResultService;
@@ -33,7 +35,7 @@ public class SyncInputService {
     }
 
     public void startCamisApi(SyncInputEntity syncInputEntity) throws IOException {
-        WebClient webClient = getWebClient(syncInputEntity.getBaseUrl(), syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
+        WebClient webClient = getWebClient(baseURL, syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
         List<SyncRecord> syncRecords = syncTimesheetService.sync(webClient, employees);
         syncRecordEntitiesSaveToSyncResultEntity(syncRecordsToSyncRecordEntities(syncRecords), syncInputEntity.getSyncResultUUID());

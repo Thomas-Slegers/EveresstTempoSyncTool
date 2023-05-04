@@ -16,8 +16,6 @@ public class SyncInputEntity {
 
     private String operation;
 
-    private String baseUrl;
-
     private String clientId;
 
     private String clientSecret;
@@ -25,18 +23,17 @@ public class SyncInputEntity {
     protected SyncInputEntity() {
     }
 
-    public SyncInputEntity(UUID syncResultUUID, File file, String operation, String baseUrl, String clientId, String clientSecret) {
+    public SyncInputEntity(UUID syncResultUUID, File file, String operation, String clientId, String clientSecret) {
         this.syncResultUUID = syncResultUUID;
         this.file = file;
         this.operation = operation;
-        this.baseUrl = baseUrl;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
 
     @Override
     public String toString() {
-        return "SyncInputJpaEntity{syncResultUUID=" + this.syncResultUUID + '\'' + ", file=" + this.file + '\'' + ", operation='" + this.operation + '\'' + ", baseUrl='" + baseUrl + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
+        return "SyncInputJpaEntity{syncResultUUID=" + this.syncResultUUID + '\'' + ", file=" + this.file + '\'' + ", operation='" + this.operation + '\'' + ", clientId='" + clientId + '\'' + ", clientSecret='" + clientSecret + '\'' + '}';
     }
 
     public UUID getSyncResultUUID() {
@@ -49,10 +46,6 @@ public class SyncInputEntity {
 
     public String getOperation() {
         return operation;
-    }
-
-    public String getBaseUrl() {
-        return baseUrl;
     }
 
     public String getClientId() {

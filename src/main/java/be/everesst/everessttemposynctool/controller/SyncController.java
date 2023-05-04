@@ -41,10 +41,10 @@ public class SyncController {
     }
 
     @PostMapping(value = "/input")
-    public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("file") MultipartFile file, @RequestParam("operation") String operation, @RequestParam("baseUrl") String baseUrl, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
+    public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("file") MultipartFile file, @RequestParam("operation") String operation, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
         File tempFile = new File(TEMP_FILE);
         file.transferTo(tempFile);
-        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), tempFile, operation, baseUrl, clientId, clientSecret));
+        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), tempFile, operation, clientId, clientSecret));
         tempFile.delete();
     }
 }
