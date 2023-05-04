@@ -20,6 +20,9 @@ public class SyncRecordEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private SyncResultEntity syncResult;
 
+    @Column(name = "RESOURCE_ID")
+    private String resourceId;
+
     @Column(name = "MESSAGE")
     private String message;
 
@@ -41,7 +44,8 @@ public class SyncRecordEntity {
     protected SyncRecordEntity() {
     }
 
-    public SyncRecordEntity(String message, String employeeName, int errorCode, LocalDate startDate, double hoursLogged, String workOrder) {
+    public SyncRecordEntity(String resourceId, String message, String employeeName, int errorCode, LocalDate startDate, double hoursLogged, String workOrder) {
+        this.resourceId = resourceId;
         this.message = message;
         this.startDate = startDate;
         this.errorCode = errorCode;
@@ -82,6 +86,6 @@ public class SyncRecordEntity {
 
     @Override
     public String toString() {
-        return "SyncEntity{id=" + id + '\'' + ", message=" + message + '\'' + ", errorCode=" + errorCode + '\'' + ", employeeName='" + employeeName + '\'' + ", startDate=" + startDate + '\'' + ", hoursLogged=" + hoursLogged + '\'' + ", workOrder='" + workOrder + '\'' + '}';
+        return resourceId + " : " + employeeName  + " : " + message +  "\\n";
     }
 }
