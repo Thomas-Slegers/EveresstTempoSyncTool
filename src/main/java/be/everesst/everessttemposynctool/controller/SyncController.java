@@ -1,7 +1,9 @@
 package be.everesst.everessttemposynctool.controller;
 
+import be.everesst.everessttemposynctool.model.sync.entities.SyncDayEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
+import be.everesst.everessttemposynctool.service.SyncDayService;
 import be.everesst.everessttemposynctool.service.SyncInputService;
 import be.everesst.everessttemposynctool.service.SyncRecordService;
 
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,10 +20,13 @@ import java.util.UUID;
 @RequestMapping(value = "/")
 public class SyncController {
     private static final String TEMP_FILE = "/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/controller/random.txt";
+
+    private final SyncDayService syncDayService;
     private final SyncInputService syncInputService;
     private final SyncRecordService syncRecordService;
 
-    public SyncController(SyncInputService syncInputService, SyncRecordService syncRecordService) {
+    public SyncController(SyncInputService syncInputService, SyncRecordService syncRecordService, SyncDayService syncDayService) {
+        this.syncDayService = syncDayService;
         this.syncInputService = syncInputService;
         this.syncRecordService = syncRecordService;
     }
@@ -38,6 +44,11 @@ public class SyncController {
     @GetMapping(value = "/sync/{syncTableUUID}/slack")
     public String findSlackInputBySyncTableUUID(@PathVariable UUID syncTableUUID) {
         return "{ \"message\": \"" + syncRecordService.findSlackInputBySyncResultUUID(syncTableUUID) + "\" }";
+    }
+
+    @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}/{date}")
+    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
+        return syncDayService.findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(syncTableUUID, resourceId, LocalDate.parse(date));
     }
 
     @PostMapping(value = "/input")
