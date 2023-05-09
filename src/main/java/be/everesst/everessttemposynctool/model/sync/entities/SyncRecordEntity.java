@@ -90,6 +90,6 @@ public class SyncRecordEntity {
 
     @Override
     public String toString() {
-        return resourceId + " : " + employeeName  + " : " + message +  "\\n";
+        return resourceId + " : " + employeeName  + " : " + message +  "\n";
     }
 }
