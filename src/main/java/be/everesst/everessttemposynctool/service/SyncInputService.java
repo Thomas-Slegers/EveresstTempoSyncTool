@@ -43,8 +43,8 @@ public class SyncInputService {
         WebClient webClient = getWebClient(baseURL, syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
         SyncReturn syncReturn = syncTimesheetService.sync(webClient, employees);
-        syncDayService.saveSyncDays(syncInputEntity.getSyncResultUUID(), syncDaysToSyncDaysEntities(syncReturn.getSyncDays()));
         syncRecordEntitiesSaveToSyncResultEntity(syncInputEntity.getSyncResultUUID(), syncRecordsToSyncRecordEntities(syncReturn.getSyncRecords()));
+        syncDayService.saveSyncDays(syncInputEntity.getSyncResultUUID(), syncDaysToSyncDaysEntities(syncReturn.getSyncDays()));
     }
 
     private void syncRecordEntitiesSaveToSyncResultEntity(UUID syncResultUUID, List<SyncRecordEntity> syncRecordEntities) {
