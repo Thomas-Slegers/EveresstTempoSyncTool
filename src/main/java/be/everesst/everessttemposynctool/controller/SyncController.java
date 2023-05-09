@@ -7,12 +7,15 @@ import be.everesst.everessttemposynctool.service.SyncDayService;
 import be.everesst.everessttemposynctool.service.SyncInputService;
 import be.everesst.everessttemposynctool.service.SyncRecordService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,8 +45,10 @@ public class SyncController {
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/slack")
-    public String findSlackInputBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        return "{ \"message\": \"" + syncRecordService.findSlackInputBySyncResultUUID(syncTableUUID) + "\" }";
+    public ResponseEntity<Map<String, String>> findSlackInputBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        String message = syncRecordService.findSlackInputBySyncResultUUID(syncTableUUID);
+        Map<String, String> response = Collections.singletonMap("message", message);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}/{date}")
