@@ -24,7 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/")
 public class SyncController {
-    private static final String TEMP_FILE = "src/main/java/be/everesst/everessttemposynctool/controller/tempFile.txt";
+    private static final String TEMP_FILE = "/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/data/tempFile.txt";
 
     private final SyncDayService syncDayService;
     private final SyncInputService syncInputService;
@@ -64,6 +64,7 @@ public class SyncController {
         clearTemporaryFile(tempFile);
         file.transferTo(tempFile);
         syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), tempFile, operation, clientId, clientSecret));
+        tempFile.delete();
     }
 
     private void clearTemporaryFile(File file){
