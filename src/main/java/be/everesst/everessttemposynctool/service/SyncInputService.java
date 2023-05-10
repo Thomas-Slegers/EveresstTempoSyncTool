@@ -1,14 +1,12 @@
 package be.everesst.everessttemposynctool.service;
 
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
-import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import com.cegeka.horizon.camis.sync_logger.model.SyncReturn;
 import com.cegeka.horizon.camis.sync_timesheet.service.SyncTimesheetService;
 import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 
 import java.io.*;
 import java.util.List;
-import java.util.UUID;
 
 import com.cegeka.horizon.camis.timesheet.Employee;
 import org.springframework.stereotype.Service;
@@ -43,15 +41,9 @@ public class SyncInputService {
         WebClient webClient = getWebClient(baseURL, syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
         SyncReturn syncReturn = syncTimesheetService.sync(webClient, employees);
-        syncRecordEntitiesSaveToSyncResultEntity(syncInputEntity.getSyncResultUUID(), syncRecordsToSyncRecordEntities(syncReturn.getSyncRecords()));
+        syncResultService.createSyncResult(syncInputEntity.getSyncResultUUID());
+        syncRecordService.saveSyncRecords(syncInputEntity.getSyncResultUUID(), syncRecordsToSyncRecordEntities(syncReturn.getSyncRecords()));
         syncDayService.saveSyncDays(syncInputEntity.getSyncResultUUID(), syncDaysToSyncDaysEntities(syncReturn.getSyncDays()));
-    }
-
-    private void syncRecordEntitiesSaveToSyncResultEntity(UUID syncResultUUID, List<SyncRecordEntity> syncRecordEntities) {
-        syncResultService.createSyncResult(syncResultUUID);
-        for (SyncRecordEntity syncRecordEntity : syncRecordEntities) {
-            syncRecordService.saveRecord(syncResultUUID, syncRecordEntity);
-        }
     }
 }
 

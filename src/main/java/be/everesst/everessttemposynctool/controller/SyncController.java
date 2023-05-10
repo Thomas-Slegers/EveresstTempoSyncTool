@@ -24,6 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/")
 public class SyncController {
+    //TODO Veranderen naar het path van de data folder met start de root directory van het project.
     private static final String TEMP_FILE = "/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/data/tempFile.txt";
 
     private final SyncDayService syncDayService;
@@ -34,11 +35,6 @@ public class SyncController {
         this.syncDayService = syncDayService;
         this.syncInputService = syncInputService;
         this.syncRecordService = syncRecordService;
-    }
-
-    @GetMapping(value = "/sync/{syncTableUUID}/{id}")
-    public SyncRecordEntity findSyncEntitiesBySyncTableUUIDAndId(@PathVariable UUID syncTableUUID, @PathVariable Long id) {
-        return syncRecordService.findSyncRecordByUUIDAndSyncRecordId(syncTableUUID, id);
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}")

@@ -5,6 +5,7 @@ import be.everesst.everessttemposynctool.model.sync.repositories.SyncRecordRepos
 import be.everesst.everessttemposynctool.model.sync.repositories.SyncResultRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,14 +25,13 @@ public class SyncRecordService {
         return syncRecordRepository.findBySyncResultSyncResultUUID(syncResultUUID);
     }
 
-    public SyncRecordEntity findSyncRecordByUUIDAndSyncRecordId(UUID syncResultUUID, long id) {
-        return syncRecordRepository.findBySyncResultSyncResultUUIDAndId(syncResultUUID, id);
+    public void saveSyncRecords(UUID syncResultUUID, List<SyncRecordEntity> syncDaysEntities) {
+        syncDaysEntities.forEach(syncRecordEntity -> {
+            syncRecordEntity.setSyncResult(syncResultRepository.findSyncResultEntityBySyncResultUUID(syncResultUUID));
+            syncRecordRepository.save(syncRecordEntity);
+        });
     }
 
-    public void saveRecord(UUID syncResultUUID, SyncRecordEntity syncRecord) {
-        syncRecord.setSyncResult(syncResultRepository.findSyncResultEntityBySyncResultUUID(syncResultUUID));
-        syncRecordRepository.save(syncRecord);
-    }
 
     public String findSlackInputBySyncResultUUID(UUID syncResultUUID){
         StringBuilder result = new StringBuilder();
