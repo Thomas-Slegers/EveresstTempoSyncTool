@@ -33,18 +33,18 @@ public class SyncDayEntity {
     @Column(name = "HOURS_LOGGED_CAMIS")
     private double hoursLoggedCamis;
 
-    @Column(name = "HOURS_LOGGED_JIRA")
-    private double hoursLoggedJira;
+    @Column(name = "HOURS_LOGGED_TEMPO")
+    private double hoursLoggedTempo;
 
     protected SyncDayEntity() {
     }
 
-    public SyncDayEntity(String resourceId, LocalDate date, String workOrder, double hoursLoggedCamis, double hoursLoggedJira) {
+    public SyncDayEntity(String resourceId, LocalDate date, String workOrder, double hoursLoggedCamis, double hoursLoggedTempo) {
         this.resourceId = resourceId;
         this.date = date;
         this.workOrder = workOrder;
         this.hoursLoggedCamis = hoursLoggedCamis;
-        this.hoursLoggedJira = hoursLoggedJira;
+        this.hoursLoggedTempo = hoursLoggedTempo;
     }
 
     public long getId() {
@@ -67,8 +67,8 @@ public class SyncDayEntity {
         return hoursLoggedCamis;
     }
 
-    public double getHoursLoggedJira() {
-        return hoursLoggedJira;
+    public double getHoursLoggedTempo() {
+        return hoursLoggedTempo;
     }
 
     public void setSyncResult(SyncResultEntity syncResult) {

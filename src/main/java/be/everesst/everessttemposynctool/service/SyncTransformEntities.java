@@ -20,7 +20,7 @@ public class SyncTransformEntities {
     public static List<SyncDayEntity> syncDaysToSyncDaysEntities(List<SyncDay> syncDays) {
         List<SyncDayEntity> syncDayEntities = new ArrayList<>();
         for (SyncDay syncDay : syncDays) {
-            syncDayEntities.add(new SyncDayEntity(syncDay.getResourceId().value(), syncDay.getDate(), syncDay.getWorkOrder().value(), syncDay.getHoursLoggedCamis(), syncDay.getHoursLoggedJira()));
+            syncDayEntities.add(new SyncDayEntity(syncDay.getResourceId().value(), syncDay.getDate(), syncDay.getWorkOrder().value(), syncDay.getHoursLoggedCamis(), syncDay.getHoursLoggedTempo()));
         }
         return syncDayEntities;
     }
