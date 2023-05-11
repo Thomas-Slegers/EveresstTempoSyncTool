@@ -12,7 +12,7 @@ public class SyncTransformEntities {
     public static List<SyncRecordEntity> syncRecordsToSyncRecordEntities(List<SyncRecord> syncRecords) {
         List<SyncRecordEntity> syncRecordEntities = new ArrayList<>();
         for (SyncRecord syncRecord : syncRecords) {
-            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getResourceId(), syncRecord.getMessage(), syncRecord.getEmployeeName(), syncRecord.getErrorCode(), syncRecord.getDate(), syncRecord.getHoursLogged(), syncRecord.getWorkOrder()));
+            syncRecordEntities.add(new SyncRecordEntity(syncRecord.getEmployerData().getResourceId().value(), syncRecord.getRecordData().getMessage(), syncRecord.getEmployerData().getEmployeeName(), syncRecord.getErrorCode(), syncRecord.getRecordData().getDate(), syncRecord.getHoursLogged(), syncRecord.getRecordData().getWorkOrder()));
         }
         return syncRecordEntities;
     }

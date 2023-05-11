@@ -1,11 +1,10 @@
 package be.everesst.everessttemposynctool.service;
 
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
-import com.cegeka.horizon.camis.sync_logger.model.SyncReturn;
+import com.cegeka.horizon.camis.sync_logger.model.SyncResult;
 import com.cegeka.horizon.camis.sync_timesheet.service.SyncTimesheetService;
 import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 
-import java.io.*;
 import java.util.List;
 
 import com.cegeka.horizon.camis.timesheet.Employee;
@@ -37,13 +36,13 @@ public class SyncInputService {
 
     }
 
-    public void startCamisApi(SyncInputEntity syncInputEntity) throws IOException {
-        WebClient webClient = getWebClient(baseURL, syncInputEntity.getClientId(), syncInputEntity.getClientSecret());
-        List<Employee> employees = new HoursLoggedCsvReader(new FileInputStream(syncInputEntity.getFile())).readCsv();
-        SyncReturn syncReturn = syncTimesheetService.sync(webClient, employees);
-        syncResultService.createSyncResult(syncInputEntity.getSyncResultUUID());
-        syncRecordService.saveSyncRecords(syncInputEntity.getSyncResultUUID(), syncRecordsToSyncRecordEntities(syncReturn.getSyncRecords()));
-        syncDayService.saveSyncDays(syncInputEntity.getSyncResultUUID(), syncDaysToSyncDaysEntities(syncReturn.getSyncDays()));
+    public void startCamisApi(SyncInputEntity syncInputEntity) {
+        WebClient webClient = getWebClient(baseURL, syncInputEntity.clientId(), syncInputEntity.clientSecret());
+        List<Employee> employees = new HoursLoggedCsvReader(syncInputEntity.inputStream()).readCsv();
+        SyncResult syncResult = syncTimesheetService.sync(webClient, employees);
+        syncResultService.createSyncResult(syncInputEntity.syncResultUUID());
+        syncRecordService.saveSyncRecords(syncInputEntity.syncResultUUID(), syncRecordsToSyncRecordEntities(syncResult.getSyncRecords()));
+        syncDayService.saveSyncDays(syncInputEntity.syncResultUUID(), syncDaysToSyncDaysEntities(syncResult.getSyncDays()));
     }
 }
 

@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
@@ -24,8 +21,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/")
 public class SyncController {
-    //TODO Veranderen naar het path van de data folder met start de root directory van het project.
-    private static final String TEMP_FILE = "/home/thomas/git/Camis/EveresstTempoSyncTool/src/main/java/be/everesst/everessttemposynctool/data/tempFile.txt";
 
     private final SyncDayService syncDayService;
     private final SyncInputService syncInputService;
@@ -56,22 +51,7 @@ public class SyncController {
 
     @PostMapping(value = "/input")
     public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("file") MultipartFile file, @RequestParam("operation") String operation, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
-        File tempFile = new File(TEMP_FILE);
-        clearTemporaryFile(tempFile);
-        file.transferTo(tempFile);
-        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), tempFile, operation, clientId, clientSecret));
-        tempFile.delete();
-    }
-
-    private void clearTemporaryFile(File file){
-        PrintWriter writer;
-        try {
-            writer = new PrintWriter(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        writer.print("");
-        writer.close();
+        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), file.getInputStream(), operation, clientId, clientSecret));
     }
 }
 
