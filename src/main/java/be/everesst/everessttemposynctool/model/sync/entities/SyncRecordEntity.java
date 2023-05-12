@@ -2,8 +2,6 @@ package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
@@ -14,12 +12,6 @@ public class SyncRecordEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SYNC_RESULT_ID", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private SyncResultEntity syncResult;
-
     @Column(name = "RESOURCE_ID")
     private String resourceId;
 
@@ -82,10 +74,6 @@ public class SyncRecordEntity {
 
     public double getHoursLogged() {
         return hoursLogged;
-    }
-
-    public void setSyncResult(SyncResultEntity syncResult) {
-        this.syncResult = syncResult;
     }
 
     @Override

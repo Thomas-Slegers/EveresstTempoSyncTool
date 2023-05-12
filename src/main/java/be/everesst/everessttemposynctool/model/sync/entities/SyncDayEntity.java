@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-
 @Entity
 @Table(name = "SYNC_DAYS")
 public class SyncDayEntity {
@@ -16,11 +12,6 @@ public class SyncDayEntity {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SYNC_RESULT_ID", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private SyncResultEntity syncResult;
 
     @Column(name = "RESOURCE_ID")
     private String resourceId;
@@ -70,9 +61,4 @@ public class SyncDayEntity {
     public double getHoursLoggedTempo() {
         return hoursLoggedTempo;
     }
-
-    public void setSyncResult(SyncResultEntity syncResult) {
-        this.syncResult = syncResult;
-    }
-
 }
