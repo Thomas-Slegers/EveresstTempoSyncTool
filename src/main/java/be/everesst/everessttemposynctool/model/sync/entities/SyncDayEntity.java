@@ -11,7 +11,7 @@ public class SyncDayEntity {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long syncDayId;
 
     @Column(name = "RESOURCE_ID")
     private String resourceId;
@@ -39,7 +39,7 @@ public class SyncDayEntity {
     }
 
     public long getId() {
-        return id;
+        return syncDayId;
     }
 
     public String getResourceId() {
