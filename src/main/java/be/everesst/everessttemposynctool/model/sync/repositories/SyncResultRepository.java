@@ -10,5 +10,4 @@ import java.util.UUID;
 public interface SyncResultRepository extends JpaRepository<SyncResultEntity, Long> {
 
     SyncResultEntity findSyncResultEntityBySyncResultUUID(UUID syncResultUUID);
-
 }
