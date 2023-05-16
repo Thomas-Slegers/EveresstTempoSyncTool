@@ -87,6 +87,9 @@ public class SyncRecordEntity {
     }
 
     public String slackInput(){
+        if (slackName.isEmpty()){
+            slackName = employeeName + " (NoCamisAccountMatched)";
+        }
         return slackName + ": " + message + "\n";
     }
 }
