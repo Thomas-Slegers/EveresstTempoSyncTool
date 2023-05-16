@@ -62,7 +62,9 @@ public class SyncResultEntity {
     public String getSlackInput(){
         StringBuilder result = new StringBuilder();
         for (SyncRecordEntity syncRecordEntity: syncRecords) {
-            result.append(syncRecordEntity.toString());
+            if (!syncRecordEntity.getMessage().toLowerCase().contains("no sync action needed for")) {
+                result.append(syncRecordEntity.slackInput());
+            }
         }
         return result.toString();
     }

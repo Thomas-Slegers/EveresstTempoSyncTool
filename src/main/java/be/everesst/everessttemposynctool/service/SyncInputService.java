@@ -3,6 +3,7 @@ package be.everesst.everessttemposynctool.service;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntity;
 import com.cegeka.horizon.camis.sync_logger.model.SyncResult;
+import com.cegeka.horizon.camis.sync_timesheet.csv.SlackEmployeesCsvReader;
 import com.cegeka.horizon.camis.sync_timesheet.service.SyncTimesheetService;
 import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 
@@ -32,7 +33,7 @@ public class SyncInputService {
 
     public void startCamisApi(SyncInputEntity syncInputEntity) {
         WebClient webClient = getWebClient(baseURL, syncInputEntity.clientId(), syncInputEntity.clientSecret());
-        List<Employee> employees = new HoursLoggedCsvReader(syncInputEntity.inputStream()).readCsv();
+        List<Employee> employees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv(new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv());
         SyncResult syncResult = syncTimesheetService.sync(webClient, employees);
         saveSyncResultWithData(syncInputEntity, syncResult);
     }

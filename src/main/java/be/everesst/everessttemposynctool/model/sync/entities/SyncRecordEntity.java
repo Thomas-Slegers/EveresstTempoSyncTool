@@ -22,6 +22,9 @@ public class SyncRecordEntity {
     @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
 
+    @Column(name = "SLACK_NAME")
+    private String slackName;
+
     @Column(name = "ERROR_CODE")
     private int errorCode;
 
@@ -37,12 +40,14 @@ public class SyncRecordEntity {
     protected SyncRecordEntity() {
     }
 
-    public SyncRecordEntity(String resourceId, String message, String employeeName, int errorCode, LocalDate startDate, double hoursLogged, String workOrder) {
+    public SyncRecordEntity(String resourceId, String message, String employeeName, String slackName, int errorCode, LocalDate startDate, double hoursLogged, String workOrder) {
         this.resourceId = resourceId;
         this.message = message;
+        this.employeeName = employeeName;
+        this.slackName = slackName;
         this.startDate = startDate;
         this.errorCode = errorCode;
-        this.employeeName = employeeName;
+
         this.workOrder = workOrder;
         this.hoursLogged = hoursLogged;
     }
@@ -69,6 +74,10 @@ public class SyncRecordEntity {
         return employeeName;
     }
 
+    public String getSlackName() {
+        return slackName;
+    }
+
     public String getWorkOrder() {
         return workOrder;
     }
@@ -77,8 +86,7 @@ public class SyncRecordEntity {
         return hoursLogged;
     }
 
-    @Override
-    public String toString() {
-        return resourceId + " : " + employeeName  + " : " + message +  "\n";
+    public String slackInput(){
+        return slackName + ": " + message + "\n";
     }
 }
