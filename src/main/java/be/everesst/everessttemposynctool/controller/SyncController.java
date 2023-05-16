@@ -46,8 +46,8 @@ public class SyncController {
     }
 
     @PostMapping(value = "/input")
-    public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("file") MultipartFile file, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
-        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), file.getInputStream(), clientId, clientSecret));
+    public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("syncFile") MultipartFile syncFile, @RequestParam("slackEmployeesFile") MultipartFile slackEmployeesFile, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
+        syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), syncFile.getInputStream(), slackEmployeesFile.getInputStream(), clientId, clientSecret));
     }
 }
 
