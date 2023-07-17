@@ -5,14 +5,15 @@ plugins {
 }
 
 group = 'be.everesst'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '17'
+
 
 repositories {
     mavenCentral()
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/thomas-slegers/Camis-Api-Test")
+            url = uri("${camisApiRepoUrl}")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
@@ -21,13 +22,14 @@ repositories {
     }
 }
 
+
 dependencies {
-    implementation "com.cegeka.horizon.camis:timesheet:1.1.33"
-    implementation "com.cegeka.horizon.camis:sync_timesheet_application:1.1.33"
-    implementation "com.cegeka.horizon.camis:sync_logger:1.1.33"
-    implementation "com.cegeka.horizon.camis:web_client_factory:1.1.33"
-    implementation "com.cegeka.horizon.camis:shared:1.1.33"
-    implementation group: 'org.json', name: 'json', version: '20220320'
+    implementation "com.cegeka.horizon.camis:timesheet:${camisApiVersion}"
+    implementation "com.cegeka.horizon.camis:sync_timesheet_application:${camisApiVersion}"
+    implementation "com.cegeka.horizon.camis:sync_logger:${camisApiVersion}"
+    implementation "com.cegeka.horizon.camis:web_client_factory:${camisApiVersion}"
+    implementation "com.cegeka.horizon.camis:shared:${camisApiVersion}"
+    implementation "org.json:json:20220320"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux:3.0.0'
