@@ -36,7 +36,7 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: view the secrets context
+    - name: View the secrets context
       shell: bash
       run: echo "$SECRETS_CONTEXT"
       env:
