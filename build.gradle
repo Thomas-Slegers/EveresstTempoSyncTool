@@ -26,6 +26,10 @@ repositories {
     }
 }
 
+bootJar {
+    launchScript()
+}
+
 
 publishing {
     repositories {
