@@ -8,11 +8,11 @@
 name: Gradle Package
 
 on:
-    release:
+  release:
     types: [created]
 #on:
-  #  push:
-      #    branches:
+#  push:
+#    branches:
 #      - 'main'
 
 jobs:
