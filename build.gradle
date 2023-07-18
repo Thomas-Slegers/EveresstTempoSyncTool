@@ -50,6 +50,9 @@ publishing {
 
             from(components.java)
         }
+        mavenJava(MavenPublication){
+            artifact bootJar
+        }
     }
 }
 
