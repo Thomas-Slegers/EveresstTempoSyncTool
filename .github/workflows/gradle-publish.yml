@@ -7,13 +7,13 @@
 
 name: Gradle Package
 
-#on:
-  #  release:
-  #  types: [created]
 on:
-  push:
-    branches:
-      - 'main'
+    release:
+    types: [created]
+#on:
+  #  push:
+      #    branches:
+#      - 'main'
 
 jobs:
   build:
@@ -35,12 +35,6 @@ jobs:
 
     - name: Make gradlew executable
       run: chmod +x ./gradlew
-
-    - name: View the secrets context
-      shell: bash
-      run: echo "$SECRETS_CONTEXT"
-      env:
-        SECRETS_CONTEXT: ${{ toJson(secrets) }}
 
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1

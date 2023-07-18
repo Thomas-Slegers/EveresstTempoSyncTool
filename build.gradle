@@ -7,8 +7,9 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'be.everesst'
-version = '1.0.0'
+
+group "$groupId"
+version "$version"
 sourceCompatibility = '17'
 
 
@@ -18,13 +19,9 @@ repositories {
         maven {
             url = uri("${repoUrl}")
             credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
-//            credentials {
-//                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-//                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-//            }
         }
     }
 }
@@ -36,8 +33,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("$repoUrl")
             credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
     }
