@@ -43,14 +43,9 @@ publishing {
         }
     }
     publications {
-        gpr(MavenPublication) {
-            groupId = "$groupId"
-            artifactId = "everesst_tempo_sync_tool"
-            version = "$version"
-
-            from(components.java)
-        }
         mavenJava(MavenPublication){
+            groupId = "$groupId"
+            version = "$version"
             artifact bootJar
         }
     }
