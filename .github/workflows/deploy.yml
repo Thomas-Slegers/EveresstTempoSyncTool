@@ -54,8 +54,8 @@ jobs:
 #        USERNAME: ${{ secrets.GITHUB_ACTOR }}
 #        TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Ls
-        run: ls -l
+    - name: Ls
+      run: ls -l
 
     # https://github.com/marketplace/actions/beanstalk-deploy
 #    - name: Deploy to Elastic Beanstalk
