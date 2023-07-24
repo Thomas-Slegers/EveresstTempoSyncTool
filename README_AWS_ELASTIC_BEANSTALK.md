@@ -25,9 +25,11 @@ under EveresstTempoSyncTool/settings/secrets/actions
 Add the following secrets and their values :
 
     AWS_ACCESS_KEY_ID
-    AWS_REGION
-    AWS_S3_BUCKET
     AWS_SECRET_ACCESS_KEY
+    AWS_REGION
+    AWS_APPLICATION_NAME
+    AWS_ENVIRONMENT_NAME
+    
 
 ## Run the Github Action
 by taking a release and check the url
