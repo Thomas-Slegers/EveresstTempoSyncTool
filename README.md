@@ -4,6 +4,18 @@ Backend service which uses the CamisAPI library. Packages for this library are a
 
 The backend service can be used by EveresstTempoSyncUI frontend to upload the necessary files.
 
+## Web API
+Paths are configured in SyncController.
+
+with
+
+    /input : to start the sync with a generated UUID
+
+    /sync/UUID/ : to show the result of the sync
+
+    /sync/UUID/ResourceId/Date : to show the sync result of the given day
+
+
 ## Get it started
 To be able to retrieve the artifacts from Gradle :
 
@@ -20,18 +32,6 @@ Keep in mind that multiple repositories are used, defined in gradle.properties
 ## Executable jar
 From Gradle (Terminal might not have the correct Java version), run bootJar
 
-## Deployment
-
-### Backend application
-https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.cloud.aws
-
-The backend application can be deployed on AWS Elastic Beanstalk.
-Elastic Beanstalk environments run an nginx instance on port 80 to proxy the actual application, running on port 5000.
-See the application.properties file for this configuration.
-
-### Frontend application
-The frontend application can be deployed on Amazon S3.
-
 ## Improve the tool
-	
+Improve by inputting the total file and giving as extra input the budget-bucket / domain division. 	
 

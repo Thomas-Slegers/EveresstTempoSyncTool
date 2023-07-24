@@ -5,7 +5,7 @@
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Gradle Package
+name: Publish and Deploy
 
 on:
   release:
@@ -46,10 +46,25 @@ jobs:
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
-    - name: Publish to GitHub Packages
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: publish
-      env:
-        USERNAME: ${{ secrets.GITHUB_ACTOR }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    - name: Publish to GitHub Packages
+#      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+#      with:
+#        arguments: publish
+#      env:
+#        USERNAME: ${{ secrets.GITHUB_ACTOR }}
+#        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ls
+        run: ls -l
+
+    # https://github.com/marketplace/actions/beanstalk-deploy
+#    - name: Deploy to Elastic Beanstalk
+#      uses: einaregilsson/beanstalk-deploy@v21
+#      with:
+#        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        application_name: ${{ secrets.AWS_APPLICATION_NAME }}
+#        environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
+#        version_label: ${{ github.sha }}
+#        region: eu-central-1
+#        deployment_package: deploy.zip
