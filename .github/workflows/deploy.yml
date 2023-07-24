@@ -55,7 +55,13 @@ jobs:
 #        TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Ls
+      run: cd build/libs
+
+    - name: Ls
       run: ls -l
+
+
+
 
     # https://github.com/marketplace/actions/beanstalk-deploy
 #    - name: Deploy to Elastic Beanstalk
