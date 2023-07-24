@@ -55,10 +55,7 @@ jobs:
 #        TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Ls
-      run: cd build/libs
-
-    - name: Ls
-      run: ls -l
+      run: cd build/libs & ls -l
 
 
 
