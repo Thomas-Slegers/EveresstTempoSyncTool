@@ -14,8 +14,8 @@ Create an Elastic Beanstalk environment for Java without a database (since this 
 
 |   	|   	|
 |---	|---	|
-| EveresstTempoCamisSync | Application |
 | EveresstTempoCamisSync-env | Environment |
+| EveresstTempoCamisSync | Application |
 
 
 ## Add the user credentials to your Github Repository
