@@ -8,11 +8,9 @@ plugins {
     id 'maven-publish'
 }
 
-
 group "$groupId"
 version "$version"
 sourceCompatibility = '17'
-
 
 repositories {
     mavenCentral()
@@ -26,19 +24,6 @@ repositories {
         }
     }
 }
-
-//bootJar {
-//    launchScript()
-//}
-
-//tasks.named("bootJar") {
-//    archiveClassifier = 'boot'
-//}
-
-//tasks.named("jar") {
-//    archiveClassifier = ''
-//}
-
 
 publishing {
     repositories {
@@ -57,7 +42,7 @@ publishing {
             artifactId = "everesst_tempo_sync_tool"
             version = "$version"
 
-            artifact bootJar
+            artifact war
         }
     }
 }

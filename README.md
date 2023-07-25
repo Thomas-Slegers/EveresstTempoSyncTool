@@ -31,7 +31,8 @@ Keep in mind that multiple repositories are used, defined in gradle.properties
 
 ## Executable jar
 From Gradle (Terminal might not have the correct Java version), run bootJar
+For deployment reasons, see README_AWS_ELASTIC_BEANSTALK, this is now removed to create a war file upon build.
 
 ## Improve the tool
-Improve by inputting the total file and giving as extra input the budget-bucket / domain division. 	
+Improve by inputting the total file and giving as extra input the budget-bucket / domain division.
 
