@@ -68,4 +68,4 @@ jobs:
         use_existing_version_if_available: true
         version_label: ${{ github.sha }}
         region: ${{ secrets.AWS_REGION }}
-        deployment_package: build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.jar
+        deployment_package: build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war
