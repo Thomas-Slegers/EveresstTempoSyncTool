@@ -71,6 +71,7 @@ dependencies {
     implementation "com.cegeka.horizon.camis:web_client_factory:${camisApiVersion}"
     implementation "com.cegeka.horizon.camis:shared:${camisApiVersion}"
     implementation "org.json:json:20220320"
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
