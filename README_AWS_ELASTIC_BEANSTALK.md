@@ -33,4 +33,8 @@ Add the following secrets and their values :
 
 ## Run the Github Action
 by taking a release and check the url
-    http://AWS_S3_BUCKET.s3-website.AWS_REGION.amazonaws.com
+    http://AWS_ENVIRONMENT_NAME.eba-jxuqphcp.AWS_REGION.elasticbeanstalk.com
+
+## Spring Actuator & Logs
+/logs
+/health

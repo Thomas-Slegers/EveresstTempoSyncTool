@@ -34,5 +34,36 @@ From Gradle (Terminal might not have the correct Java version), run bootJar
 For deployment reasons, see README_AWS_ELASTIC_BEANSTALK, this is now removed to create a war file upon build.
 
 ## Improve the tool
-Improve by inputting the total file and giving as extra input the budget-bucket / domain division.
+
+###  Make it usable
+Homepage to
+    DONE Starting a sync
+    DONE Look up a sync by UUID -> in the url /sync/UUID 
+
+Starting a sync
+    DONE UUID generated at the front-end
+    DONE Disable the button to avoid double click
+    DONE Show the SyncUUID
+        (go straight away to the look up sync page)
+    DONE Run as a batch in the background
+    
+UI
+    Minimum Hours Logging Needed ?
+    Do not show the succesful updates
+    Only show errors
+    returning with the same UUID doesn't work
+    Hours logged Camis <> Tempo shows situation before the actual sync ...
+    No sync action seems to work => it's Correct ...
+
+Slack input
+    Werkt voor update ...
+    Enkel voor fouten is dat interessant
+
+### More functionality
+
+    Improve by inputting the total file 
+        and giving as extra input the budget-bucket / domain division.
+    And do the extra checking on 8 hours booked
+    per day (for a period)
+    
 

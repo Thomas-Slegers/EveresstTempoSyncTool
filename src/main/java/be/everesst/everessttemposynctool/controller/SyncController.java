@@ -3,6 +3,7 @@ package be.everesst.everessttemposynctool.controller;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncDayEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
+import be.everesst.everessttemposynctool.service.LongRunningSyncInputService;
 import be.everesst.everessttemposynctool.service.SyncInputService;
 
 import be.everesst.everessttemposynctool.service.SyncResultService;
@@ -21,10 +22,10 @@ import java.util.UUID;
 @RequestMapping(value = "/")
 public class SyncController {
 
-    private final SyncInputService syncInputService;
+    private final LongRunningSyncInputService syncInputService;
     private final SyncResultService syncResultService;
 
-    public SyncController(SyncInputService syncInputService, SyncResultService syncResultService) {
+    public SyncController(LongRunningSyncInputService syncInputService, SyncResultService syncResultService) {
         this.syncInputService = syncInputService;
         this.syncResultService = syncResultService;
     }
@@ -47,6 +48,7 @@ public class SyncController {
 
     @PostMapping(value = "/input")
     public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("syncFile") MultipartFile syncFile, @RequestParam("slackEmployeesFile") MultipartFile slackEmployeesFile, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
+
         syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), syncFile.getInputStream(), slackEmployeesFile.getInputStream(), clientId, clientSecret));
     }
 }

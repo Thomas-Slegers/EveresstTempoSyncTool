@@ -8,6 +8,7 @@ import com.cegeka.horizon.camis.sync_timesheet.service.SyncTimesheetService;
 import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.cegeka.horizon.camis.timesheet.Employee;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,11 @@ public class SyncInputService {
     }
 
     public void startCamisApi(SyncInputEntity syncInputEntity) {
+        try {
+            TimeUnit.SECONDS.sleep(120);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         WebClient webClient = getWebClient(baseURL, syncInputEntity.clientId(), syncInputEntity.clientSecret());
         List<Employee> employees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv(new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv());
         SyncResult syncResult = syncTimesheetService.sync(webClient, employees);
