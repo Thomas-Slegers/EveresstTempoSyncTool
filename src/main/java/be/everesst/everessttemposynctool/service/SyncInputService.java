@@ -1,14 +1,14 @@
 package be.everesst.everessttemposynctool.service;
 
+import be.everesst.everessttemposynctool.model.notification.csv.SlackEmployee;
+import be.everesst.everessttemposynctool.model.notification.csv.SlackEmployeesCsvReader;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntity;
 import com.cegeka.horizon.camis.sync_logger.model.SyncResult;
-import com.cegeka.horizon.camis.sync_timesheet.csv.SlackEmployeesCsvReader;
 import com.cegeka.horizon.camis.sync_timesheet.service.SyncTimesheetService;
 import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import com.cegeka.horizon.camis.timesheet.Employee;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,7 @@ import static com.cegeka.horizon.camis.web_client_factory.WebClientFactory.getWe
 public class SyncInputService {
 
     private static final String baseURL = "https://gw.api.cegeka.com/1/erp/camis/v1/prd/";
+    private static final double MINIMUM_HOURS_LOGGED_DAILY = 8.0;
 
     SyncResultService syncResultService;
 
@@ -33,20 +34,16 @@ public class SyncInputService {
     }
 
     public void startCamisApi(SyncInputEntity syncInputEntity) {
-        try {
-            TimeUnit.SECONDS.sleep(120);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         WebClient webClient = getWebClient(baseURL, syncInputEntity.clientId(), syncInputEntity.clientSecret());
-        List<Employee> employees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv(new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv());
-        SyncResult syncResult = syncTimesheetService.sync(webClient, employees);
-        saveSyncResultWithData(syncInputEntity, syncResult);
+        List<Employee> employees = new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv();
+        List<SlackEmployee> slackMappingOfEmployees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv();
+        SyncResult syncResult = syncTimesheetService.sync(webClient, employees, MINIMUM_HOURS_LOGGED_DAILY);
+        saveSyncResultWithData(syncInputEntity, syncResult, slackMappingOfEmployees);
     }
 
-    private void saveSyncResultWithData(SyncInputEntity syncInputEntity, SyncResult syncResult){
+    private void saveSyncResultWithData(SyncInputEntity syncInputEntity, SyncResult syncResult, List<SlackEmployee> slackMappingOfEmployees){
         SyncResultEntity syncResultEntity = new SyncResultEntity(syncInputEntity.syncResultUUID());
-        syncResultEntity.setSyncRecords(syncRecordsToSyncRecordEntities(syncResult.getSyncRecords()));
+        syncResultEntity.setSyncRecords(syncRecordsToSyncRecordEntities(syncResult.getSyncRecords(), slackMappingOfEmployees));
         syncResultEntity.setSyncDays(syncDaysToSyncDaysEntities(syncResult.getSyncDays()));
         syncResultService.save(syncResultEntity);
     }

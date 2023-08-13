@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LogFileController {
-    private Resource logFileResource;
+    private final Resource logFileResource;
+    @Value("${logging.remote.available}")
+    private String loggingRemoteAvailable;
 
     public LogFileController(ResourceLoader resourceLoader, @Value("${logging.file.name}") String logFile) {
         this.logFileResource = resourceLoader.getResource("file:" + logFile);
@@ -16,6 +18,9 @@ public class LogFileController {
 
     @GetMapping("/logs")
     public Resource getLogFile() {
-        return this.logFileResource;
+        if(Boolean.parseBoolean(loggingRemoteAvailable)){
+            return this.logFileResource;
+        }
+        throw new UnsupportedOperationException("Not permitted");
     }
 }

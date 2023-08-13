@@ -10,10 +10,6 @@ name: Publish and Deploy
 on:
   release:
     types: [created]
-#on:
-#  push:
-#    branches:
-#      - 'main'
 
 jobs:
   build:

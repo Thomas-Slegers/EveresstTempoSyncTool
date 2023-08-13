@@ -25,7 +25,7 @@ a gradle.properties file including
     gpr.user=
     gpr.key=
 
-For the Github Action, the configuration is done in workflows/gradle-publish.yml
+For the GitHub Action, the configuration is done in workflows/gradle-publish.yml
 This file configures the environment variables necessary for retrieving and publishing artifacts from repositories, as defined in build.gradle.
 Keep in mind that multiple repositories are used, defined in gradle.properties
 
@@ -44,11 +44,18 @@ Starting a sync
     DONE UUID generated at the front-end
     DONE Disable the button to avoid double click
     DONE Show the SyncUUID
-        (go straight away to the look up sync page)
+        (go straight away to the look-up sync page)
     DONE Run as a batch in the background
+    DONE Remove the Slack information from the Camis library
+    BUSY Understand Thomas's code by passing period & minimum hours + adding the checks + validation
     
 UI
-    Minimum Hours Logging Needed ?
+    Minimum Hours Logging Needed ? 
+        -> check for 8 hours
+        -> give a period as additional input parameter
+            : every day between x & y aside from weekends should have 8 hours
+            => log exceptions
+
     Do not show the succesful updates
     Only show errors
     returning with the same UUID doesn't work
@@ -63,7 +70,6 @@ Slack input
 
     Improve by inputting the total file 
         and giving as extra input the budget-bucket / domain division.
-    And do the extra checking on 8 hours booked
-    per day (for a period)
+    
     
 
