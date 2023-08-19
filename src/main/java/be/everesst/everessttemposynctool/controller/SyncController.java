@@ -1,9 +1,8 @@
 package be.everesst.everessttemposynctool.controller;
 
-import be.everesst.everessttemposynctool.model.sync.entities.SyncDayEntity;
-import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
-import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
+import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntry;
 import be.everesst.everessttemposynctool.service.LongRunningSyncInputService;
+import be.everesst.everessttemposynctool.service.SyncInputEntity;
 import be.everesst.everessttemposynctool.service.SyncResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/")
@@ -29,29 +25,28 @@ public class SyncController {
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}")
-    public Set<SyncRecordEntity> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        return syncResultService.getSyncResultEntityByUUID(syncTableUUID).getSyncRecords();
+    public List<SyncResultEntry> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        return syncResultService.findSyncResultEntityByUUID(syncTableUUID);
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/slack")
     public ResponseEntity<Map<String, String>> findSlackInputBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        String message = syncResultService.getSyncResultEntityByUUID(syncTableUUID).getSlackInput();
+        String message = syncResultService.findSyncResultEntityByUUIDAsSlackInput(syncTableUUID);
         return ResponseEntity.ok(Collections.singletonMap("message", message));
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}/{date}")
-    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUIDResourceIdDate(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
-        return syncResultService.getSyncResultEntityByUUID(syncTableUUID).findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(resourceId, LocalDate.parse(date));
+    public List<SyncResultEntry> findSyncDayEntitiesBySyncTableUUIDResourceIdDate(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
+        return syncResultService.findSyncResultEntityByUUID(syncTableUUID, resourceId, LocalDate.parse(date));
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}")
-    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUIDResourceId(@PathVariable UUID syncTableUUID, @PathVariable String resourceId) {
-        return syncResultService.getSyncResultEntityByUUID(syncTableUUID).findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(resourceId);
+    public List<SyncResultEntry> findSyncDayEntitiesBySyncTableUUIDResourceId(@PathVariable UUID syncTableUUID, @PathVariable String resourceId) {
+        return syncResultService.findSyncResultEntityByUUID(syncTableUUID, resourceId);
     }
 
     @PostMapping(value = "/input")
-    public void startSync(@RequestParam("syncResultUUID") String uuid, @RequestParam("syncFile") MultipartFile syncFile, @RequestParam("slackEmployeesFile") MultipartFile slackEmployeesFile, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
-
+    public void startSync(@RequestParam("uuid") String uuid, @RequestParam("syncFile") MultipartFile syncFile, @RequestParam("slackEmployeesFile") MultipartFile slackEmployeesFile, @RequestParam("clientId") String clientId, @RequestParam("clientSecret") String clientSecret) throws IOException {
         syncInputService.startCamisApi(new SyncInputEntity(UUID.fromString(uuid), syncFile.getInputStream(), slackEmployeesFile.getInputStream(), clientId, clientSecret));
     }
 }
