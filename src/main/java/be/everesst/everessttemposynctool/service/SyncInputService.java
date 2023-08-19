@@ -11,6 +11,7 @@ import com.cegeka.horizon.camis.sync_timesheet.csv.HoursLoggedCsvReader;
 import java.util.List;
 
 import com.cegeka.horizon.camis.timesheet.Employee;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -20,8 +21,8 @@ import static com.cegeka.horizon.camis.web_client_factory.WebClientFactory.getWe
 
 @Service
 public class SyncInputService {
-
-    private static final String baseURL = "https://gw.api.cegeka.com/1/erp/camis/v1/prd/";
+    @Value("${camis.api}")
+    private String camisBaseApiUrl;
     private static final double MINIMUM_HOURS_LOGGED_DAILY = 8.0;
 
     SyncResultService syncResultService;
@@ -34,7 +35,7 @@ public class SyncInputService {
     }
 
     public void startCamisApi(SyncInputEntity syncInputEntity) {
-        WebClient webClient = getWebClient(baseURL, syncInputEntity.clientId(), syncInputEntity.clientSecret());
+        WebClient webClient = getWebClient(camisBaseApiUrl, syncInputEntity.clientId(), syncInputEntity.clientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv();
         List<SlackEmployee> slackMappingOfEmployees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv();
         SyncResult syncResult = syncTimesheetService.sync(webClient, employees, MINIMUM_HOURS_LOGGED_DAILY);

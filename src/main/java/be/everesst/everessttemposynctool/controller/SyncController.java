@@ -1,11 +1,9 @@
 package be.everesst.everessttemposynctool.controller;
 
 import be.everesst.everessttemposynctool.model.sync.entities.SyncDayEntity;
-import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import be.everesst.everessttemposynctool.model.sync.entities.SyncInputEntity;
+import be.everesst.everessttemposynctool.model.sync.entities.SyncRecordEntity;
 import be.everesst.everessttemposynctool.service.LongRunningSyncInputService;
-import be.everesst.everessttemposynctool.service.SyncInputService;
-
 import be.everesst.everessttemposynctool.service.SyncResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +40,13 @@ public class SyncController {
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}/{date}")
-    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
+    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUIDResourceIdDate(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
         return syncResultService.getSyncResultEntityByUUID(syncTableUUID).findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(resourceId, LocalDate.parse(date));
+    }
+
+    @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}")
+    public Set<SyncDayEntity> findSyncDayEntitiesBySyncTableUUIDResourceId(@PathVariable UUID syncTableUUID, @PathVariable String resourceId) {
+        return syncResultService.getSyncResultEntityByUUID(syncTableUUID).findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(resourceId);
     }
 
     @PostMapping(value = "/input")

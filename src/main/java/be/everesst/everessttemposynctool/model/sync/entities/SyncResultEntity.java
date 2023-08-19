@@ -1,11 +1,12 @@
 package be.everesst.everessttemposynctool.model.sync.entities;
 
 import jakarta.persistence.*;
-import java.time.DayOfWeek;
+import org.threeten.extra.LocalDateRange;
+
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "SYNC_RESULTS")
@@ -46,17 +47,16 @@ public class SyncResultEntity {
     }
 
     public Set<SyncDayEntity> findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(String resourceId, LocalDate date){
-        LocalDate startDate = date.with(DayOfWeek.MONDAY);
-        LocalDate endDate = date.with(DayOfWeek.FRIDAY);
-        Set<SyncDayEntity> syncDayEntities = new HashSet<>();
-        syncDays.forEach(syncDayEntity -> {
-            if ((syncDayEntity.getDate().isAfter(startDate) || syncDayEntity.getDate().equals(startDate)) &&
-                    (syncDayEntity.getDate().isBefore(endDate) || syncDayEntity.getDate().equals(endDate)) &&
-                    syncDayEntity.getResourceId().matches(resourceId)) {
-                syncDayEntities.add(syncDayEntity);
-            }
-        });
-        return syncDayEntities;
+        return syncDays.stream().filter(syncDayEntity ->
+                        LocalDateRange.of(date, date.plusDays(7)).contains(syncDayEntity.getDate()))
+                        .filter(syncDayEntity -> syncDayEntity.getResourceId().equals(resourceId))
+                                .collect(Collectors.toSet());
+    }
+
+    public Set<SyncDayEntity> findAllSyncDayEntitiesByUUIDAndResourceIdAndDate(String resourceId) {
+        return syncDays.stream()
+                .filter(syncDayEntity -> syncDayEntity.getResourceId().equals(resourceId))
+                .collect(Collectors.toSet());
     }
 
     public String getSlackInput(){
@@ -68,4 +68,6 @@ public class SyncResultEntity {
         }
         return result.toString();
     }
+
+
 }

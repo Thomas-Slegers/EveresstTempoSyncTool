@@ -47,24 +47,23 @@ Starting a sync
         (go straight away to the look-up sync page)
     DONE Run as a batch in the background
     DONE Remove the Slack information from the Camis library
-    BUSY Understand Thomas's code by passing period & minimum hours + adding the checks + validation
+    DONE Understand Thomas's code by passing period & minimum hours + adding the checks + validation
+    Streamable result
     
 UI
-    Minimum Hours Logging Needed ? 
-        -> check for 8 hours
-        -> give a period as additional input parameter
-            : every day between x & y aside from weekends should have 8 hours
-            => log exceptions
-
-    Do not show the succesful updates
     Only show errors
-    returning with the same UUID doesn't work
-    Hours logged Camis <> Tempo shows situation before the actual sync ...
+        insufficient hours
+        sync errors
+    DONE /UUID/resourceId
+        Overview of all hours instead of week + filter / grouped by week & summed by day
+        
+    Bug ? hours logged Camis <> Tempo shows situation before the actual sync ...
     No sync action seems to work => it's Correct ...
 
 Slack input
     Werkt voor update ...
     Enkel voor fouten is dat interessant
+    Groeperen van de fouten (te weinig uren / andere fouten ) + link naar probleempagina persoon (resourceID pagina)
 
 ### More functionality
 
