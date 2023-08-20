@@ -1,5 +1,6 @@
 package be.everesst.everessttemposynctool.model.sync.entities;
 
+import com.cegeka.horizon.camis.domain.ResourceId;
 import com.cegeka.horizon.camis.sync.logger.model.result.SyncResult;
 import com.cegeka.horizon.camis.sync.logger.model.result.SyncResultType;
 import jakarta.persistence.*;
@@ -13,7 +14,7 @@ public class SyncResultEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "SYNC_RESULT_UUID")
+    @Column(name = "SYNC_UUID")
     private UUID syncUUID;
 
     @Column(name = "EMPLOYEE_NAME")
@@ -22,8 +23,11 @@ public class SyncResultEntry {
     @Column(name = "SLACK_NAME")
     private String slackHandle;
 
-    @Column(name = "RESOURCE_ID")
-    private String resourceId;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="value", column=@Column(name = "RESOURCE_ID"))
+    })
+    private ResourceId resourceId;
 
     @Column(name = "RESULT_TYPE")
     private SyncResultType resultType;
@@ -32,10 +36,13 @@ public class SyncResultEntry {
     @Column(name = "JSON_SYNC_RESULT")
     private SyncResult syncResult;
 
+    SyncResultEntry(){}
+
     public SyncResultEntry(UUID uuid, String slackHandle, SyncResult syncResult) {
         this.syncUUID = uuid;
         this.slackHandle = slackHandle;
-        this.slackHandle = syncResult.employee().name();
+        this.resourceId = syncResult.employee().resourceId();
+        this.employeeName = syncResult.employee().name();
         this.resultType = syncResult.type();
         this.syncResult = syncResult;
     }
@@ -50,5 +57,9 @@ public class SyncResultEntry {
 
     public SyncResult contents(){
         return syncResult;
+    }
+
+    public ResourceId resourceId() {
+        return resourceId;
     }
 }

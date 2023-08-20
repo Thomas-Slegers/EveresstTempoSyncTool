@@ -39,6 +39,7 @@ public class SyncResultEntryRepositoryTest {
         // Retrieve and test
         SyncResultEntry retrievedEntry = repository.findById(entry.id()).orElse(null);
         assertThat(retrievedEntry).isNotNull();
+        assertThat(retrievedEntry.resourceId()).isEqualTo(new ResourceId("I099999"));
         assertThat(retrievedEntry.syncResult()).isNotNull();
         assertThat(retrievedEntry.syncResult().type()).isEqualTo(SyncResultType.SUCCESS);
     }

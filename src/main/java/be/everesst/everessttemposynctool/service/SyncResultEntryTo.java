@@ -10,18 +10,19 @@ import java.time.LocalDate;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.temporal.TemporalAdjusters.previous;
 
-public record SyncResultEntryTO(LocalDate startOfWeek,
+public record SyncResultEntryTo(LocalDate startOfWeek,
                                 LocalDate syncDate,
-                                String employeeName,
+                                com.cegeka.horizon.camis.domain.ResourceId resourceId, String employeeName,
                                 SyncResultType syncResult,
                                 WorkOrder workOrder,
                                 String message,
                                 Double camisHours,
                                 Double inputHours) {
 
-    public static SyncResultEntryTO map(SyncResultEntry entry){
+    public static SyncResultEntryTo map(SyncResultEntry entry){
         SyncResult contents = entry.contents();
-        return new SyncResultEntryTO(startOfWeek(contents.workorderInfo().date()), contents.workorderInfo().date(),
+        return new SyncResultEntryTo(startOfWeek(contents.workorderInfo().date()), contents.workorderInfo().date(),
+                                    contents.employee().resourceId(),
                                     contents.employee().name(),
                                     contents.type(), contents.workorderInfo().workOrder(), contents.workorderInfo().message(),
                                     contents.hoursInfo().camisHours(), contents.hoursInfo().inputHours());

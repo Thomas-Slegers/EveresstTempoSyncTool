@@ -12,7 +12,7 @@ public class LongRunningSyncInputService {
     @Autowired SyncInputService syncInputService;
 
     @Async
-    public CompletableFuture<Void> startCamisApi(SyncInputEntity syncInputEntity) {
+    public CompletableFuture<Void> startCamisApi(SyncInputTo syncInputEntity) {
         syncInputService.startCamisApi(syncInputEntity);
         return CompletableFuture.completedFuture(null);
     }

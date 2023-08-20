@@ -32,7 +32,7 @@ public class SyncInputService {
         this.syncResultService = syncResultService;
     }
 
-    public void startCamisApi(SyncInputEntity syncInputEntity) {
+    public void startCamisApi(SyncInputTo syncInputEntity) {
         WebClient webClient = getWebClient(camisBaseApiUrl, syncInputEntity.clientId(), syncInputEntity.clientSecret());
         List<Employee> employees = new HoursLoggedCsvReader(syncInputEntity.syncInputStream()).readCsv();
         List<SlackEmployee> slackMappingOfEmployees = new SlackEmployeesCsvReader(syncInputEntity.slackEmployeesInputStream()).readCsv();
@@ -40,9 +40,9 @@ public class SyncInputService {
         saveSyncResultWithData(syncInputEntity, syncResult, slackMappingOfEmployees);
     }
 
-    private void saveSyncResultWithData(SyncInputEntity syncInputEntity, Flux<SyncResult> syncResultsFlux, List<SlackEmployee> slackMappingOfEmployees){
+    private void saveSyncResultWithData(SyncInputTo syncInputEntity, Flux<SyncResult> syncResultsFlux, List<SlackEmployee> slackMappingOfEmployees){
         syncResultsFlux.subscribe(syncResult ->
-            syncResultService.save(new SyncResultEntry(syncInputEntity.uuid(),
+            syncResultService.save(new SyncResultEntry(syncInputEntity.syncUUID(),
                                     mapSlackEmployee(slackMappingOfEmployees, syncResult.employee()),
                                     syncResult
                                 )
