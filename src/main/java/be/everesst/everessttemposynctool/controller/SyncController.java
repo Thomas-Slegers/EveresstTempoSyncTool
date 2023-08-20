@@ -1,8 +1,8 @@
 package be.everesst.everessttemposynctool.controller;
 
-import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntry;
 import be.everesst.everessttemposynctool.service.LongRunningSyncInputService;
 import be.everesst.everessttemposynctool.service.SyncInputEntity;
+import be.everesst.everessttemposynctool.service.SyncResultEntryTO;
 import be.everesst.everessttemposynctool.service.SyncResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +25,8 @@ public class SyncController {
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}")
-    public List<SyncResultEntry> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
-        return syncResultService.findSyncResultEntityByUUID(syncTableUUID);
+    public List<SyncResultEntryTO> findSyncEntitiesBySyncTableUUID(@PathVariable UUID syncTableUUID) {
+        return syncResultService.findSyncResultEntry(syncTableUUID).stream().map(SyncResultEntryTO::map).toList();
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/slack")
@@ -36,13 +36,15 @@ public class SyncController {
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}/{date}")
-    public List<SyncResultEntry> findSyncDayEntitiesBySyncTableUUIDResourceIdDate(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
-        return syncResultService.findSyncResultEntityByUUID(syncTableUUID, resourceId, LocalDate.parse(date));
+    public List<SyncResultEntryTO> findSyncDayEntitiesBySyncTableUUIDResourceIdDate(@PathVariable UUID syncTableUUID, @PathVariable String resourceId, @PathVariable String date) {
+        return syncResultService.findSyncResultEntry(syncTableUUID, resourceId).stream().map(SyncResultEntryTO::map)
+                .filter(entryTo -> entryTo.startOfWeek().equals(LocalDate.parse(date)))
+                .toList();
     }
 
     @GetMapping(value = "/sync/{syncTableUUID}/{resourceId}")
-    public List<SyncResultEntry> findSyncDayEntitiesBySyncTableUUIDResourceId(@PathVariable UUID syncTableUUID, @PathVariable String resourceId) {
-        return syncResultService.findSyncResultEntityByUUID(syncTableUUID, resourceId);
+    public List<SyncResultEntryTO> findSyncDayEntitiesBySyncTableUUIDResourceId(@PathVariable UUID syncTableUUID, @PathVariable String resourceId) {
+        return syncResultService.findSyncResultEntry(syncTableUUID, resourceId).stream().map(SyncResultEntryTO::map).toList();
     }
 
     @PostMapping(value = "/input")

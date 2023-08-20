@@ -42,9 +42,8 @@ public class SyncInputService {
 
     private void saveSyncResultWithData(SyncInputEntity syncInputEntity, Flux<SyncResult> syncResultsFlux, List<SlackEmployee> slackMappingOfEmployees){
         syncResultsFlux.subscribe(syncResult ->
-            syncResultService.save(new SyncResultEntry(syncInputEntity.uuid(), syncResult.employee(),
+            syncResultService.save(new SyncResultEntry(syncInputEntity.uuid(),
                                     mapSlackEmployee(slackMappingOfEmployees, syncResult.employee()),
-                                    syncResult.type(),
                                     syncResult
                                 )
             ));

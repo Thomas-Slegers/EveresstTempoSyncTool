@@ -1,6 +1,5 @@
 package be.everesst.everessttemposynctool.model.sync.entities;
 
-import com.cegeka.horizon.camis.domain.EmployeeIdentification;
 import com.cegeka.horizon.camis.sync.logger.model.result.SyncResult;
 import com.cegeka.horizon.camis.sync.logger.model.result.SyncResultType;
 import jakarta.persistence.*;
@@ -15,7 +14,7 @@ public class SyncResultEntry {
     private long id;
 
     @Column(name = "SYNC_RESULT_UUID")
-    private UUID uuid;
+    private UUID syncUUID;
 
     @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
@@ -33,11 +32,11 @@ public class SyncResultEntry {
     @Column(name = "JSON_SYNC_RESULT")
     private SyncResult syncResult;
 
-    public SyncResultEntry(UUID uuid, EmployeeIdentification employee, String slackHandle, SyncResultType resultType, SyncResult syncResult) {
-        this.uuid = uuid;
-        this.employeeName = employee.name();
+    public SyncResultEntry(UUID uuid, String slackHandle, SyncResult syncResult) {
+        this.syncUUID = uuid;
         this.slackHandle = slackHandle;
-        this.resultType = resultType;
+        this.slackHandle = syncResult.employee().name();
+        this.resultType = syncResult.type();
         this.syncResult = syncResult;
     }
 
@@ -46,6 +45,10 @@ public class SyncResultEntry {
     }
 
     public SyncResult syncResult() {
+        return syncResult;
+    }
+
+    public SyncResult contents(){
         return syncResult;
     }
 }

@@ -10,5 +10,7 @@ import java.util.UUID;
 @Repository
 public interface SyncResultEntryRepository extends JpaRepository<SyncResultEntry, Long> {
 
-    List<SyncResultEntry> findSyncResultEntryByUuid(UUID syncResultUUID);
+    List<SyncResultEntry> findSyncResultEntryBySyncUUID(UUID syncUUID);
+
+    List<SyncResultEntry> findSyncResultEntryBySyncUUIDAndResourceId(UUID syncUUID, String resourceId);
 }
