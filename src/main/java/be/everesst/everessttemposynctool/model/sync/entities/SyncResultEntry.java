@@ -30,6 +30,7 @@ public class SyncResultEntry {
     private ResourceId resourceId;
 
     @Column(name = "RESULT_TYPE")
+    @Enumerated(EnumType.STRING)
     private SyncResultType resultType;
 
     @Lob

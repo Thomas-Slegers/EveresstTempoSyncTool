@@ -1,6 +1,7 @@
 package be.everesst.everessttemposynctool.model.sync.repositories;
 
 import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntry;
+import com.cegeka.horizon.camis.domain.ResourceId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,5 @@ public interface SyncResultEntryRepository extends JpaRepository<SyncResultEntry
 
     List<SyncResultEntry> findSyncResultEntryBySyncUUID(UUID syncUUID);
 
-    List<SyncResultEntry> findSyncResultEntryBySyncUUIDAndResourceId(UUID syncUUID, String resourceId);
+    List<SyncResultEntry> findSyncResultEntryBySyncUUIDAndResourceId(UUID syncUUID, ResourceId resourceId);
 }

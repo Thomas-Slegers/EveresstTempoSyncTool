@@ -2,6 +2,7 @@ package be.everesst.everessttemposynctool.service;
 
 import be.everesst.everessttemposynctool.model.sync.entities.SyncResultEntry;
 import be.everesst.everessttemposynctool.model.sync.repositories.SyncResultEntryRepository;
+import com.cegeka.horizon.camis.domain.ResourceId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,6 @@ public class SyncResultService {
     }
 
     public List<SyncResultEntry> findSyncResultEntry(UUID syncUUID, String resourceId) {
-        return syncResultEntryRepository.findSyncResultEntryBySyncUUIDAndResourceId(syncUUID, resourceId);
+        return syncResultEntryRepository.findSyncResultEntryBySyncUUIDAndResourceId(syncUUID, new ResourceId(resourceId));
     }
 }
