@@ -11,10 +11,13 @@ import java.util.UUID;
 @Service
 public class SyncResultService {
 
-    SyncResultEntryRepository syncResultEntryRepository;
 
-    public SyncResultService(SyncResultEntryRepository syncResultRepository) {
+    private SlackInputMapper slackInputMapper;
+    private SyncResultEntryRepository syncResultEntryRepository;
+
+    public SyncResultService(SyncResultEntryRepository syncResultRepository, SlackInputMapper slackInputMapper) {
         this.syncResultEntryRepository = syncResultRepository;
+        this.slackInputMapper = slackInputMapper;
     }
 
     public void save(SyncResultEntry syncResultEntity) {
@@ -26,7 +29,7 @@ public class SyncResultService {
     }
 
     public String findSyncResultEntityByUUIDAsSlackInput(UUID syncUUID) {
-        return "";
+        return slackInputMapper.mapProblems(syncResultEntryRepository.findSyncResultEntryBySyncUUID(syncUUID));
     }
 
     public List<SyncResultEntry> findSyncResultEntry(UUID syncUUID, String resourceId) {

@@ -52,6 +52,10 @@ public class SyncResultEntry {
         return id;
     }
 
+    public UUID syncUUID() {
+        return syncUUID;
+    }
+
     public SyncResult syncResult() {
         return syncResult;
     }
@@ -62,5 +66,9 @@ public class SyncResultEntry {
 
     public ResourceId resourceId() {
         return resourceId;
+    }
+
+    public String slackHandle(){
+        return slackHandle;
     }
 }
