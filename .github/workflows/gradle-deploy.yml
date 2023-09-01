@@ -58,6 +58,9 @@ jobs:
           cd deploy_package
           zip -r deploy.zip EveresstTempoSyncTool-${{ github.ref_name }}.war .ebextensions
 
+    - name: Ls
+      run: ls -lR
+
     # https://github.com/marketplace/actions/beanstalk-deploy
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v21
