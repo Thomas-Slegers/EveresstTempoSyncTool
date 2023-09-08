@@ -54,12 +54,12 @@ jobs:
       run: |
           mkdir deploy_package
           cp build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war deploy_package/
-          cp -r .ebextensions deploy_package/
+          ls -lhR
           cd deploy_package
-          zip -r deploy.zip EveresstTempoSyncTool-${{ github.ref_name }}.war .ebextensions
+          zip -r deploy.zip EveresstTempoSyncTool-${{ github.ref_name }}.war
 
     - name: Ls
-      run: ls -lR
+      run: ls -lhR
 
     # https://github.com/marketplace/actions/beanstalk-deploy
     - name: Deploy to Elastic Beanstalk
