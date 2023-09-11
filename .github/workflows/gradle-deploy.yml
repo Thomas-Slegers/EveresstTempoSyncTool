@@ -50,14 +50,6 @@ jobs:
         USERNAME: ${{ secrets.GITHUB_ACTOR }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Package .war and .ebextensions for Elastic Beanstalk
-      run: |
-          mkdir deploy_package
-          cp build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war deploy_package/
-          ls -lhR
-          cd deploy_package
-          zip -r deploy.zip EveresstTempoSyncTool-${{ github.ref_name }}.war
-
     - name: Ls
       run: ls -lhR
 
@@ -72,4 +64,4 @@ jobs:
         use_existing_version_if_available: true
         version_label: ${{ github.sha }}
         region: ${{ secrets.AWS_REGION }}
-        deployment_package: deploy_package/deploy.zip
+        deployment_package: build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war

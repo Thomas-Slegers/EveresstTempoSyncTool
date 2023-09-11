@@ -35,36 +35,6 @@ For deployment reasons, see README_AWS_ELASTIC_BEANSTALK, this is now removed to
 
 ## Improve the tool
 
-###  Make it usable
-Homepage to
-    DONE Starting a sync
-    DONE Look up a sync by UUID -> in the url /sync/UUID 
-
-Starting a sync
-    DONE UUID generated at the front-end
-    DONE Disable the button to avoid double click
-    DONE Show the SyncUUID
-        (go straight away to the look-up sync page)
-    DONE Run as a batch in the background
-    DONE Remove the Slack information from the Camis library
-    DONE Understand Thomas's code by passing period & minimum hours + adding the checks + validation
-    Streamable result
-    
-UI
-    Only show errors
-        insufficient hours
-        sync errors
-    DONE /UUID/resourceId
-        Overview of all hours instead of week + filter / grouped by week & summed by day
-        
-    Bug ? hours logged Camis <> Tempo shows situation before the actual sync ...
-    No sync action seems to work => it's Correct ...
-
-Slack input
-    Werkt voor update ...
-    Enkel voor fouten is dat interessant
-    Groeperen van de fouten (te weinig uren / andere fouten ) + link naar probleempagina persoon (resourceID pagina)
-
 ### More functionality
 
     Improve by inputting the total file 
