@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SlackEmployeesCsvReader {
 
-    public static final char SEPARATOR = '^';
+    public static final char SEPARATOR = ';';
     private final InputStream csvInputStream;
 
     public SlackEmployeesCsvReader(InputStream inputStream){
