@@ -12,10 +12,23 @@ running on port 5000. Enable the CORS configuration to support the frontend to r
 
 Create an Elastic Beanstalk environment for Java without a database (since this has an embedded database).
 
+
 |   	|   	|
 |---	|---	|
 | EveresstTempoCamisSync-env | Environment |
 | EveresstTempoCamisSync | Application |
+
+### Set up SSL certificate for HTTPS
+To avoid block mixed content problems, set up a SSL certificate using AWS Certificate Manager.
+This certificate can be used in the Elastic Beanstalk environment.
+Also adapt your DNS settings to point to the Elastic Beanstalk environment.
+
+### Set up a load balancer
+When creating the Elastic Beanstalk environment, set up a load balancer.
+This load balancer will be used to redirect HTTPS traffic coming in to HTTP traffic.
+To do add, add a listener to the load balancer, listening on port 443 and forwarding to port 80.
+The nginx instance will then redirect the traffic to port 5000, where the application is running.
+
 
 
 ## Add the user credentials to your Github Repository
@@ -37,4 +50,4 @@ by taking a release and check the url
 
 ## Spring Actuator & Logs
 /logs
-/health
+/actuator/health
