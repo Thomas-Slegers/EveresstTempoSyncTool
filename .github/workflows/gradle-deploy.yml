@@ -50,21 +50,15 @@ jobs:
         USERNAME: ${{ secrets.GITHUB_ACTOR }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#    - name: Show contents of directory
-#      run: ls -lhR
-#
-#    - name: Package into a zip
-#      run: zip -r EveresstTempoSyncTool-${{ github.ref_name }}.zip build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war .ebextensions
-#
-#    # https://github.com/marketplace/actions/beanstalk-deploy
-#    - name: Deploy to Elastic Beanstalk
-#      uses: einaregilsson/beanstalk-deploy@v21
-#      with:
-#        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        application_name: ${{ secrets.AWS_APPLICATION_NAME }}
-#        environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
-#        use_existing_version_if_available: true
-#        version_label: ${{ github.sha }}
-#        region: ${{ secrets.AWS_REGION }}
-#        deployment_package: EveresstTempoSyncTool-${{ github.ref_name }}.zip
+    # https://github.com/marketplace/actions/beanstalk-deploy
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: ${{ secrets.AWS_APPLICATION_NAME }}
+        environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
+        use_existing_version_if_available: true
+        version_label: ${{ github.sha }}
+        region: ${{ secrets.AWS_REGION }}
+        deployment_package: build/libs/EveresstTempoSyncTool-${{ github.ref_name }}.war
