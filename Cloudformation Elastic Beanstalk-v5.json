@@ -1,0 +1,132 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation Template for Beanstalk Application with specific requirements",
+  "Resources": {
+    "TempoSyncToCamisApplication": {
+      "Type": "AWS::ElasticBeanstalk::Application",
+      "Properties": {
+        "Description": "Elastic Beanstalk Application",
+        "ApplicationName": "TempoSyncToCamis"
+      }
+    },
+    "TempoSyncToCamisEnvironment": {
+      "Type": "AWS::ElasticBeanstalk::Environment",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "TempoSyncToCamisApplication"
+        },
+        "EnvironmentName": "TempoSyncToCamisEnvironment",
+        "SolutionStackName": "64bit Amazon Linux 2023 v4.0.1 running Corretto 17",
+        "OptionSettings": [
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "InstanceType",
+            "Value": "t3.small"
+          },
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "EC2KeyName",
+            "Value": "CloudFormationKeyPair"
+          },
+          {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "IamInstanceProfile",
+            "Value": {
+              "Ref": "BeanstalkInstanceProfile"
+            }
+          },
+          {
+            "Namespace": "aws:autoscaling:asg",
+            "OptionName": "MaxSize",
+            "Value": "1"
+          },
+          {
+            "Namespace": "aws:elasticbeanstalk:environment",
+            "OptionName": "EnvironmentType",
+            "Value": "LoadBalanced"
+          },
+          {
+            "Namespace": "aws:elbv2:listener:443",
+            "OptionName": "ListenerEnabled",
+            "Value": "true"
+          },
+          {
+            "Namespace": "aws:elbv2:listener:443",
+            "OptionName": "Protocol",
+            "Value": "HTTPS"
+          },
+          {
+            "Namespace": "aws:elbv2:listener:443",
+            "OptionName": "SSLCertificateArns",
+            "Value": "arn:aws:acm:eu-central-1:315652812604:certificate/d9d34abc-72f2-43f7-83a4-aad869daf75c"
+          },
+          {
+            "Namespace": "aws:elbv2:listener:80",
+            "OptionName": "ListenerEnabled",
+            "Value": "true"
+          },
+          {
+            "Namespace": "aws:elbv2:listener:80",
+            "OptionName": "Protocol",
+            "Value": "HTTP"
+          }
+        ]
+      }
+    },
+    "BeanstalkRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "root",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudwatch:*",
+                    "ec2:*",
+                    "elasticbeanstalk:*",
+                    "elasticloadbalancing:*",
+                    "s3:*",
+                    "sns:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "BeanstalkInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Ref": "BeanstalkRole"
+          }
+        ]
+      }
+    }
+  }
+}
