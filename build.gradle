@@ -43,6 +43,7 @@ publishing {
             version = "$version"
 
             artifact war
+            artifact bootJar
         }
     }
 }
