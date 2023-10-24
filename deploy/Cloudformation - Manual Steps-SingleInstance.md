@@ -20,7 +20,8 @@ Access the IAM (Identity and Access Management) dashboard:
 In the IAM dashboard, on the left-hand side, you will see a "Access management" section. 
 Create a new user: GithubWorkFlowDeployToBeansTalk
 Add user to the group: BeansTalkDeployAccess
-Add Permissions policies to the group : AWSElasticBeanstalkRoleCore & AWSElasticBeanstalkRoleCWL
+Add Permissions policies to the group : 
+AWSElasticBeanstalkRoleCore & AWSElasticBeanstalkRoleCWL & AdministratorAccess-AWSElasticBeanstalk
 Create the User
 
 In the user details page, click on the "Security credentials" tab.
