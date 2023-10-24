@@ -5,8 +5,9 @@ The frontend application linked to this backend is deployed on Amazon S3 & Cloud
 (preferred way when deploying to Amazons Web Services)
 Do the Cloudformation - Manual Steps-SingleInstance.md 
 and upload the corresponding .json template file to Cloudformation.
+Also provide and configure the IAM role for Github to deploy on Beanstalk.
 
-## Manual steps
+## Alternative Manual steps
 
 ### Deployment
 https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.cloud.aws
