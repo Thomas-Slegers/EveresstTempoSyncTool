@@ -8,7 +8,7 @@
         <file>${loggingFileName}</file>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.html.HTMLLayout">
-                <pattern>%date{"yyyy-MM-dd'T'HH:mm:ss,SSSZZZ"} [%thread] %-5level %logger{35} - %msg %n</pattern>
+                <pattern>%date{"yyyy-MM-dd'T'HH:mm:ss,SSSZZZ"} %-5level %msg %logger{35}</pattern>
             </layout>
         </encoder>
     </appender>

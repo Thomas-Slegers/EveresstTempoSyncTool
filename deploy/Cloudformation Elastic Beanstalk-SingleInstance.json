@@ -21,7 +21,7 @@
           {
             "Namespace": "aws:autoscaling:launchconfiguration",
             "OptionName": "InstanceType",
-            "Value": "t3.small"
+            "Value": "t4g.micro"
           },
           {
             "Namespace": "aws:autoscaling:launchconfiguration",
@@ -45,63 +45,96 @@
             "OptionName": "EnvironmentType",
             "Value": "SingleInstance"
           }
-        ]
-      }
-    },
-    "BeanstalkRole": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "ec2.amazonaws.com"
+          ]
+        }
+        },
+          "BeanstalkRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": ["ec2.amazonaws.com"]
+                    },
+                    "Action": ["sts:AssumeRole"]
+                  }
                 ]
               },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "Path": "/",
-        "Policies": [
-          {
-            "PolicyName": "root",
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
+              "Path": "/",
+              "Policies": [
                 {
-                  "Effect": "Allow",
-                  "Action": [
-                    "cloudwatch:*",
-                    "ec2:*",
-                    "elasticbeanstalk:*",
-                    "elasticloadbalancing:*",
-                    "s3:*",
-                    "sns:*"
-                  ],
-                  "Resource": "*"
+                  "PolicyName": "root",
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "cloudwatch:*",
+                          "ec2:*",
+                          "elasticbeanstalk:*",
+                          "elasticloadbalancing:*",
+                          "s3:*",
+                          "sns:*"
+                        ],
+                        "Resource": "*"
+                      }
+                    ]
+                  }
                 }
               ]
             }
-          }
-        ]
-      }
-    },
-    "BeanstalkInstanceProfile": {
-      "Type": "AWS::IAM::InstanceProfile",
-      "Properties": {
-        "Path": "/",
-        "Roles": [
-          {
-            "Ref": "BeanstalkRole"
-          }
-        ]
-      }
-    }
-  }
-}
+          },
+          "BeanstalkInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+              "Path": "/",
+              "Roles": [
+                {
+                  "Ref": "BeanstalkRole"
+                }
+                ]
+              }
+              },
+                "SecurityGroup": {
+                  "Type": "AWS::EC2::SecurityGroup",
+                  "Properties": {
+                    "GroupDescription": "Security group for Elastic Beanstalk environment",
+                    "VpcId": "YOUR_VPC_ID",
+                    "SecurityGroupIngress": [
+                      {
+                        "IpProtocol": "tcp",
+                        "FromPort": 80,
+                        "ToPort": 80,
+                        "CidrIp": "0.0.0.0/0"
+                      }
+                    ]
+                  }
+                },
+                "BeanstalkEnvironmentSecurityGroup": {
+                  "Type": "AWS::ElasticBeanstalk::Environment",
+                  "Properties": {
+                    "ApplicationName": {
+                      "Ref": "EveresstTempoSyncToolApplication"
+                    },
+                    "EnvironmentName": "EveresstTempoSyncToolEnvironment",
+                    "SolutionStackName": "64bit Amazon Linux 2023 v4.0.1 running Corretto 17",
+                    "OptionSettings": [
+                      {
+                        "Namespace": "aws:autoscaling:launchconfiguration",
+                        "OptionName": "SecurityGroups",
+                        "Value": { "Fn::GetAtt": ["SecurityGroup", "GroupId"] }
+                      },
+                      {
+                        "Namespace": "aws:elasticbeanstalk:environment",
+                        "OptionName": "EnvironmentType",
+                        "Value": "SingleInstance"
+                      }
+                    ]
+                  }
+                }
+                }
+              }
