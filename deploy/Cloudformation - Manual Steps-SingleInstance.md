@@ -17,16 +17,16 @@
 
 ## On AWS IAM, create AWS Access Key ID and Secret Access Key
 Access the IAM (Identity and Access Management) dashboard:
-In the IAM dashboard, on the left-hand side, you will see a "Access management" section. 
-Create a new user: GithubWorkFlowDeployToBeansTalk
-Add user to the group: BeansTalkDeployAccess
-Add Permissions policies to the group : 
+* In the IAM dashboard, on the left-hand side, you will see a "Access management" section. 
+* Create a new user: GithubWorkFlowDeployToBeansTalk
+* Add user to the group: BeansTalkDeployAccess
+* Add Permissions policies to the group : 
 
 	AWSElasticBeanstalkRoleCore
  	AWSElasticBeanstalkRoleCWL
   	AdministratorAccess-AWSElasticBeanstalk
    
-Create the User
+* Create the User
 
 In the user details page, click on the "Security credentials" tab.
 Here, find the "Access keys" section and click on the "Create access key" button.
