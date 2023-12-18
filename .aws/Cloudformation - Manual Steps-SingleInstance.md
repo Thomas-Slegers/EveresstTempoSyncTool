@@ -10,7 +10,7 @@
   - Attach the necessary permissions policies. attach existing policies like AdministratorAccess 
   - Review the role and then create it.
 
-## Create Stack EveresstTempoSyncTool-EB with the .json file
+## Create Stack everesst-temposync-beanstalk with the .json file
 	- Select the CloudFormation role from above
 
 # For the Github workflow deploy
