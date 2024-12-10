@@ -66,11 +66,11 @@ tasks.withType(GenerateMavenPom).all {
 
 
 dependencies {
-    implementation "com.cegeka.horizon.camis:timesheet:${camisApiVersion}"
-    implementation "com.cegeka.horizon.camis:sync_timesheet_application:${camisApiVersion}"
-    implementation "com.cegeka.horizon.camis:sync_logger:${camisApiVersion}"
-    implementation "com.cegeka.horizon.camis:web_client_factory:${camisApiVersion}"
-    implementation "com.cegeka.horizon.camis:shared:${camisApiVersion}"
+    implementation "com.cegeka.camis.horizon:timesheet:${camisApiVersion}"
+    implementation "com.cegeka.camis.horizon:sync_timesheet_application:${camisApiVersion}"
+    implementation "com.cegeka.camis.horizon:sync_logger:${camisApiVersion}"
+    implementation "com.cegeka.camis.horizon:web_client_factory:${camisApiVersion}"
+    implementation "com.cegeka.camis.horizon:shared:${camisApiVersion}"
     implementation "org.json:json:20230227"
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
