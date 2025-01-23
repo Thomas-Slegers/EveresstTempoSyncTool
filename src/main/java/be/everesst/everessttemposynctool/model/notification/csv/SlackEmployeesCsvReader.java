@@ -33,9 +33,6 @@ public class SlackEmployeesCsvReader {
             while ((nextRecord = csvReader.readNext()) != null) {
                 csvLines.add(new SlackEmployee(
                         nextRecord[0],
-                        Boolean.getBoolean(nextRecord[1]),
-                        Boolean.getBoolean(nextRecord[2]),
-                        nextRecord[3],
                         nextRecord[4],
                         nextRecord[5],
                         nextRecord[6],
